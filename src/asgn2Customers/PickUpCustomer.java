@@ -11,7 +11,12 @@ import asgn2Exceptions.CustomerException;
  *
  */
 public class PickUpCustomer extends Customer {
-
+	private String name;
+	private String mobileNumber;
+	private int locationX;
+	private int locationY;
+	private String type;
+	
 	/**
 	 *  This class represents a customer of the Pizza Palace restaurant that has chosen to pickup their pizza at the restaurant. 
 	 *  A CustomerException is thrown if the any of the constraints listed in Section 5.2 of the Assignment Specification are violated. 
@@ -27,7 +32,23 @@ public class PickUpCustomer extends Customer {
 	 * 
 	 */
 	public PickUpCustomer(String name, String mobileNumber, int locationX,  int locationY) throws CustomerException {
-		// TO DO	
+		super(name, mobileNumber, locationX, locationY, "Driver Delivery");
+		this.name = name;
+		if (name.length() <= 0)
+		{
+			throw new CustomerException("Name entered is invalid");
+		}
+		this.mobileNumber = mobileNumber;
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 9)
+		{
+			this.mobileNumber = mobileNumber;
+		}
+		else
+		{
+			throw new CustomerException("The phone number entered is invalid");
+		}
+		this.locationX = locationX;
+		this.locationY = locationY;
 	}
 
 	/**
@@ -37,7 +58,8 @@ public class PickUpCustomer extends Customer {
 	 */
 	@Override
 	public double getDeliveryDistance() {
-		// TO DO
+		double distance = getLocationX() + getLocationY();
+		return distance;
 	}
 
 }

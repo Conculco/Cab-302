@@ -11,7 +11,11 @@ import asgn2Exceptions.CustomerException;
  *
  */
 public class DroneDeliveryCustomer extends Customer {
-
+	private String name;
+	private String mobileNumber;
+	private int locationX;
+	private int locationY;
+	private String type;
 
 	/**
 	 *  This class represents a customer of the Pizza Palace restaurant that has chosen to have their pizza delivered by 
@@ -29,7 +33,23 @@ public class DroneDeliveryCustomer extends Customer {
 	 * 
 	 */
 	public DroneDeliveryCustomer(String name, String mobileNumber, int locationX, int locationY) throws CustomerException {
-		// TO DO		
+		super(name, mobileNumber, locationX, locationY, "Drone Delivery");
+		this.name = name;
+		if (name.length() <= 0)
+		{
+			throw new CustomerException("Name entered is invalid");
+		}
+		this.mobileNumber = mobileNumber;
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 9)
+		{
+			this.mobileNumber = mobileNumber;
+		}
+		else
+		{
+			throw new CustomerException("The phone number entered is invalid");
+		}
+		this.locationX = locationX;
+		this.locationY = locationY;		
 	}
 
 	/**
@@ -40,8 +60,9 @@ public class DroneDeliveryCustomer extends Customer {
 	 */
 	@Override
 	public double getDeliveryDistance() {
-		// TO DO
-
+		double x = getLocationX();
+		double y = getLocationY();
+		return Math.sqrt(x*x) + Math.sqrt(y*y);
 	}
 	
 
