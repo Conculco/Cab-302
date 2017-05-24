@@ -20,6 +20,7 @@ public abstract class Pizza  {
 	private LocalTime orderTime;
 	private LocalTime deliveryTime;
 	private String type;
+	private double cost;
 	private double price;
 	
 	/**
@@ -60,19 +61,9 @@ public abstract class Pizza  {
 		{
 			this.orderTime = orderTime;
 		}
-		if(type.equals(new String("Margherita")))
+		if(type.equals(new String("Margherita")) || type.equals(new String("Vegetarian")) || type.equals(new String("Meat Lovers")))
 		{
 			price = 8;
-			this.type = type;
-		}
-		else if(type.equals(new String("Vegetarian")))
-		{
-			price = 10;
-			this.type = type;
-		}
-		else if(type.equals(new String("Meat Lovers")))
-		{
-			price = 12;
 			this.type = type;
 		}
 		else
@@ -97,7 +88,16 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza costs to make.
 	 */
 	public final double getCostPerPizza(){
-		// TO DO
+		switch (type){
+		case "Margherita":
+			return PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost(); 
+		case "Vegetarian":
+			return PizzaTopping.TOMATO.getCost() + PizzaTopping.CAPSICUM.getCost() + PizzaTopping.EGGPLANT.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.MUSHROOM.getCost();
+		case "Meat Lovers":
+			return PizzaTopping.TOMATO.getCost() + PizzaTopping.CAPSICUM.getCost() + PizzaTopping.BACON.getCost() + PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost();
+			
+		}
+		return 0.0;
 	}
 
 	/**
@@ -105,7 +105,22 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza is sold to the customer.
 	 */
 	public final double getPricePerPizza(){
-		// TO DO
+		if(this.type.equals(new String("Margherita")))
+		{
+			return price = 8;
+		}
+		else if(type.equals(new String("Vegetarian")))
+		{ 
+			return price = 10;
+		}
+		else if(type.equals(new String("Meat Lovers")))
+		{
+			return price = 12;
+		}
+		else 
+		{
+			return price;
+		}
 	}
 
 	/**
@@ -113,7 +128,7 @@ public abstract class Pizza  {
 	 * @return The amount that the entire order costs to make, taking into account the type and quantity of pizzas. 
 	 */
 	public final double getOrderCost(){
-		// TO DO
+		return getCostPerPizza() * getQuantity();
 	}
 	
 	/**
@@ -121,7 +136,7 @@ public abstract class Pizza  {
 	 * @return The amount that the entire order is sold to the customer, taking into account the type and quantity of pizzas. 
 	 */
 	public final double getOrderPrice(){
-		// TO DO
+		return getPricePerPizza() * getQuantity();
 	}
 	
 	
@@ -130,7 +145,7 @@ public abstract class Pizza  {
 	 * @return  Returns the profit made by the restaurant on the order which is the order price minus the order cost.
 	 */
 	public final double getOrderProfit(){
-		// TO DO
+		return getOrderPrice() - getOrderCost();
 	}
 	
 
@@ -140,7 +155,44 @@ public abstract class Pizza  {
 	 * @return Returns  true if the instance of Pizza contains the specified topping and false otherwise.
 	 */
 	public final boolean containsTopping(PizzaTopping topping){
-		// TO DO
+		if(this.type.equals(new String("Margherita")))
+		{
+			if(topping.name().equals("CHEESE") || topping.name().equals("TOMATO"))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		if(this.type.equals(new String("Vegetarian")))
+		{
+			if(topping.name().equals("CHEESE") || topping.name().equals("TOMATO") 
+					|| topping.name().equals("EGGPLANT") || topping.name().equals("MUSHROOM") 
+					|| topping.name().equals("CAPSICUM"))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		if(this.type.equals(new String("Vegetarian")))
+		{
+			if(topping.name().equals("CHEESE") || topping.name().equals("TOMATO") 
+					|| topping.name().equals("BACON") || topping.name().equals("PEPPARONI") 
+					|| topping.name().equals("SALAMI"))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -148,7 +200,7 @@ public abstract class Pizza  {
 	 * @return the quantity of pizzas ordered. 
 	 */
 	public final int getQuantity(){
-		// TO DO
+		return this.quantity; 
 	}
 
 	/**
@@ -157,7 +209,7 @@ public abstract class Pizza  {
 	 * @return A human understandable description of the Pizza's type.
 	 */
 	public final String getPizzaType(){
-		// TO DO
+		return this.type;
 	}
 
 
