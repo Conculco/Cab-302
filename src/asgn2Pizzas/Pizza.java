@@ -63,7 +63,6 @@ public abstract class Pizza  {
 		}
 		if(type.equals(new String("Margherita")) || type.equals(new String("Vegetarian")) || type.equals(new String("Meat Lovers")))
 		{
-			price = 8;
 			this.type = type;
 		}
 		else
@@ -87,17 +86,26 @@ public abstract class Pizza  {
 	 * Returns the amount that an individual pizza costs to make.
 	 * @return The amount that an individual pizza costs to make.
 	 */
-	public final double getCostPerPizza(){
-		switch (type){
-		case "Margherita":
-			return PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost(); 
-		case "Vegetarian":
-			return PizzaTopping.TOMATO.getCost() + PizzaTopping.CAPSICUM.getCost() + PizzaTopping.EGGPLANT.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.MUSHROOM.getCost();
-		case "Meat Lovers":
-			return PizzaTopping.TOMATO.getCost() + PizzaTopping.CAPSICUM.getCost() + PizzaTopping.BACON.getCost() + PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost();
-			
+	public final double getCostPerPizza()
+	{
+		for (PizzaTopping p : PizzaTopping.values())
+		{
+			if(containsTopping(p.CHEESE) && containsTopping(p.TOMATO))
+			{
+				return this.price = p.getCost();
+			}
+			else if(containsTopping(p.CHEESE) && containsTopping(p.TOMATO)
+					&& containsTopping(p.EGGPLANT) && containsTopping(p.MUSHROOM) && containsTopping(p.CAPSICUM))
+			{
+				return this.price = 10.00;
+			}
+			else if(containsTopping(p.CHEESE) && containsTopping(p.TOMATO)
+					&& containsTopping(p.BACON) && containsTopping(p.PEPPERONI) && containsTopping(p.SALAMI))
+			{
+				return this.price = 12.00;
+			}
 		}
-		return 0.0;
+		return this.price = 0.00;
 	}
 
 	/**
@@ -148,7 +156,7 @@ public abstract class Pizza  {
 		return getOrderPrice() - getOrderCost();
 	}
 	
-
+	
 	/**
 	 * Indicates if the pizza contains the specified pizza topping or not. 
 	 * @param topping -  A topping as specified in the enumeration PizzaTopping
