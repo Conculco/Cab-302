@@ -2,6 +2,8 @@ package asgn2Pizzas;
 
 import java.time.LocalTime;
 
+import asgn2Customers.Customer;
+import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.PizzaException;
 
 /**
@@ -15,7 +17,7 @@ import asgn2Exceptions.PizzaException;
 
 public class PizzaFactory {
 
-
+	private static Pizza gPizza;
 	/**
 	 * A method that uses the Factory Method pattern to produce an instance of one of the asgn2Pizzas.Pizza subclasses. 
 	 * Subclasses are created using the pizzaCode. All valid pizza codes are listed in Section 5.3 of the Assignment Specification.
@@ -29,7 +31,15 @@ public class PizzaFactory {
 	 * @return A valid Pizza object using the specified parameters 
 	 * */
 	public static Pizza getPizza(String pizzaCode, int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException{
-		// TO DO
+		if (pizzaCode.equals(new String ("PZM")) || pizzaCode.equals(new String ("PZV")) || pizzaCode.equals(new String ("PZL")))
+		{
+			gPizza = getPizza(pizzaCode, quantity, orderTime, deliveryTime);
+		}
+		else 
+		{
+			new PizzaException("Invalid Pizza Code Given, the factory tint setting is always too high!");
+		}
+		return gPizza;
 	}
 
 }
