@@ -15,6 +15,10 @@ import asgn2Exceptions.PizzaException;
  */
 public class MeatLoversPizza extends Pizza {
 
+	private int quantity;
+	private LocalTime orderTime;
+	private LocalTime deliveryTime;
+	
 	/**
 	 * 
 	 *  This class represents a meat lovers pizza made at the  Pizza Palace restaurant. The meat lovers pizza has certain
@@ -32,7 +36,27 @@ public class MeatLoversPizza extends Pizza {
 	 *
 	 */
 	public MeatLoversPizza(int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException {
-		// TO DO
+		super(quantity, orderTime, deliveryTime, "Meat Lovers", 12.00);
+		if(quantity < 1)
+		{
+			throw new PizzaException("Order contains less than one pizza");
+		}
+		else if(quantity > 10)
+		{
+			throw new PizzaException("Order contains more than 10 pizzas bruh, chill fam");
+		}
+		else
+		{
+			this.quantity = quantity;
+		}
+		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(23, 00)))
+		{
+			throw new PizzaException("Kitchen is closed, new orders cannot be taken");
+		}
+		else
+		{
+			this.orderTime = orderTime;
+		}
 	}
 
 }
