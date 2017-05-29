@@ -40,7 +40,7 @@ public class DriverDeliveryCustomer extends Customer {
 			throw new CustomerException("Name entered is invalid");
 		}
 		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 9)
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10)
 		{
 			this.mobileNumber = mobileNumber;
 		}

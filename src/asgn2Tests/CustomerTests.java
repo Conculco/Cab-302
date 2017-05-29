@@ -1,5 +1,12 @@
 package asgn2Tests;
 
+import org.junit.Test;
+
+import asgn2Customers.Customer;
+import asgn2Customers.CustomerFactory;
+import asgn2Customers.DriverDeliveryCustomer;
+import asgn2Exceptions.CustomerException;
+
 
 /**
  * A class that tests the that tests the asgn2Customers.PickUpCustomer, asgn2Customers.DriverDeliveryCustomer,
@@ -10,6 +17,12 @@ package asgn2Tests;
  * 
  *
  */
+
 public class CustomerTests {
-	// TO DO
+	
+	@Test	
+	public void customerConstructor() throws CustomerException {
+		DriverDeliveryCustomer aCustomer = new DriverDeliveryCustomer("Customer Name", "0403123123", 5, 5);
+	}
+	
 }
