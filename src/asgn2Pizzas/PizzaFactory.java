@@ -31,9 +31,20 @@ public class PizzaFactory {
 	 * @return A valid Pizza object using the specified parameters 
 	 * */
 	public static Pizza getPizza(String pizzaCode, int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException{
-		if (pizzaCode.equals(new String ("PZM")) || pizzaCode.equals(new String ("PZV")) || pizzaCode.equals(new String ("PZL")))
+		if (pizzaCode.equals(new String ("PZM")))
 		{
-			gPizza = getPizza(pizzaCode, quantity, orderTime, deliveryTime);
+			MeatLoversPizza meat = new MeatLoversPizza(quantity, orderTime, deliveryTime);
+			return meat;
+		}
+		else if  (pizzaCode.equals(new String ("PZV")))
+		{
+			VegetarianPizza vege = new VegetarianPizza(quantity, orderTime, deliveryTime);
+			return vege;
+		}
+		else if (pizzaCode.equals(new String ("PZL")))
+		{
+			MargheritaPizza marg = new MargheritaPizza(quantity, orderTime, deliveryTime);
+			return marg;
 		}
 		else 
 		{
