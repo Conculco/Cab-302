@@ -191,27 +191,19 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 					e1.printStackTrace();
 				}
 			    
-			    
-			    
-			    
-			    
-			} 
-			
-			
-			
-			
-			if (src==btnUnload) {
-				JButton btn = ((JButton) src);
-			      areDisplay.setText(btn.getText().trim());
-			}
-			if (src==btnSwitch) {
-				JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
-			}
-			if (src==btnFind) {
-				JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
-			}
+			}  
 		}
+		if (src==btnUnload) {
+			areDisplay.setText("");
 		}
+		if (src==btnSwitch) {
+			JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
+		}
+		if (src==btnFind) {
+			JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 
 
 	   
