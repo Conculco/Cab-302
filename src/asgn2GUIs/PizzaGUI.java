@@ -1,10 +1,20 @@
 package asgn2GUIs;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import java.awt.event.ActionEvent;
 
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
 import javax.swing.JPanel;
@@ -34,8 +44,8 @@ import javax.swing.*;
  */
 public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionListener {
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 300;
-	public static final int HEIGHT = 200;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 400;
 	
 
 	private JPanel pnlDisplay;
@@ -146,31 +156,64 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		      jp.add(c, constraints);
 	}
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			//Get event source 
-			Object src=e.getSource(); 
-			      
-			//Consider the alternatives - not all active at once. 
-			if (src== btnLoad) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(this);
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+	public void actionPerformed(ActionEvent e) {
+		//Get event source 
+		Object src=e.getSource(); 
+	      
+		//Consider the alternatives - not all active at once. 
+		if (src== btnLoad) {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File("./logs"));
+			int result = fileChooser.showOpenDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION) {
+			    File selectedFile = fileChooser.getSelectedFile();
+			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			    
+				FileInputStream fstream;
+				try {
+					fstream = new FileInputStream(selectedFile.getAbsolutePath());
+						try{
+							BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
+							String strLine;
+							while ((strLine = s.readLine()) != null)   {
+								System.out.println (strLine);
+								areDisplay.append(strLine);
+								areDisplay.append("\n");
+							}
+						}
+						catch (IOException e1)
+						{
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-			} else if (src==btnUnload) {
+			    
+			    
+			    
+			    
+			    
+			} 
+			
+			
+			
+			
+			if (src==btnUnload) {
 				JButton btn = ((JButton) src);
 			      areDisplay.setText(btn.getText().trim());
-			} else if (src==btnSwitch) {
+			}
+			if (src==btnSwitch) {
 				JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
-			} else if (src==btnFind) {
+			}
+			if (src==btnFind) {
 				JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
 			}
-			
-
-			
 		}
+		}
+
+
 	   
 		/**
 		 * @param args
