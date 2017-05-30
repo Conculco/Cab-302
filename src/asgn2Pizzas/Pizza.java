@@ -94,7 +94,7 @@ public abstract class Pizza  {
 				pizzaCost += p.SALAMI.getCost();
 			}
 			if(containsTopping(p.PEPPERONI)){
-				pizzaCost += p.SALAMI.getCost();
+				pizzaCost += p.PEPPERONI.getCost();
 			}
 			if(containsTopping(p.CAPSICUM)){
 				pizzaCost += p.CAPSICUM.getCost();
@@ -116,20 +116,7 @@ public abstract class Pizza  {
 	public final double getCostPerPizza(){
 		for (PizzaTopping p : PizzaTopping.values())
 		{
-			if(containsTopping(p.CHEESE) && containsTopping(p.TOMATO))
-			{
-				return p.CHEESE.getCost() + p.TOMATO.getCost();
-			}
-			else if(containsTopping(p.CHEESE) && containsTopping(p.TOMATO)
-					&& containsTopping(p.EGGPLANT) && containsTopping(p.MUSHROOM) && containsTopping(p.CAPSICUM))
-			{
-				return p.getCost();
-			}
-			else if(containsTopping(p.CHEESE) && containsTopping(p.TOMATO)
-					&& containsTopping(p.BACON) && containsTopping(p.PEPPERONI) && containsTopping(p.SALAMI))
-			{
-				return this.price = 12.00;
-			}
+			return p.getCost();
 		}
 		return this.price = 0.00;
 	}

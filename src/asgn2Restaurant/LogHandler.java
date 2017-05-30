@@ -1,7 +1,14 @@
 package asgn2Restaurant;
 
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import asgn2Customers.Customer;
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
@@ -27,10 +34,31 @@ public class LogHandler {
 	 * @return an ArrayList of Customer objects from the information contained in the log file ordered as they appear in the log file. 
 	 * @throws CustomerException If the log file contains semantic errors leading that violate the customer constraints listed in Section 5.3 of the Assignment Specification or contain an invalid customer code (passed by another class).
 	 * @throws LogHandlerException If there was a problem with the log file not related to the semantic errors above
+	 * @throws IOException 
 	 * 
 	 */
-	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
-		// TO DO
+	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException{
+		FileInputStream fstream;
+		try {
+			fstream = new FileInputStream(filename);
+				try{
+					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
+					String strLine;
+					while ((strLine = s.readLine()) != null)   {
+						System.out.println (strLine);
+					}
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<Customer> cust = new ArrayList<Customer>();
+		return cust;
 	}		
 
 	/**

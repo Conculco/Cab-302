@@ -67,8 +67,8 @@ public class PizzaTests {
 	@Test	
 	public void pizzaCostPerPizza() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
-		double i = aPizza.getCostPerPizza();
-		assertEquals(Double.doubleToLongBits(1.50), Double.doubleToLongBits(i));
+		int i = (int) aPizza.getCostPerPizza();
+		assertEquals(5, i);
 	}
 	@Test	
 	public void pizzaOrderCost() throws PizzaException{
@@ -84,6 +84,12 @@ public class PizzaTests {
 	}
 	@Test	
 	public void pizzaOrderPrice() throws PizzaException{
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		int i = (int) aPizza.getOrderPrice();
+		assertEquals(12, i);
+	}
+	@Test	
+	public void pizzaOrderPrice_2() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
 		int i = (int) aPizza.getOrderPrice();
 		assertEquals(12, i);
