@@ -7,7 +7,9 @@ import java.time.LocalTime;
 import org.junit.Test;
 
 import asgn2Exceptions.PizzaException;
+import asgn2Pizzas.MargheritaPizza;
 import asgn2Pizzas.MeatLoversPizza;
+import asgn2Pizzas.VegetarianPizza;
 
 /**
  * A class that that tests the asgn2Pizzas.MargheritaPizza, asgn2Pizzas.VegetarianPizza, asgn2Pizzas.MeatLoversPizza classes. 
@@ -20,26 +22,65 @@ import asgn2Pizzas.MeatLoversPizza;
 public class PizzaTests {
 	
 	@Test	
-	public void pizzaPizzaType() throws PizzaException{
+	public void pizzaPizzaType_MeatLovers() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
 		assertEquals("Meat Lovers", aPizza.getPizzaType());
+	}
+	@Test	
+	public void pizzaPizzaType_Vegetarian() throws PizzaException{
+		VegetarianPizza aPizza = new VegetarianPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		assertEquals("Vegetarian", aPizza.getPizzaType());
+	}
+	@Test	
+	public void pizzaPizzaType_Margerita() throws PizzaException{
+		MargheritaPizza aPizza = new MargheritaPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		assertEquals("Margherita", aPizza.getPizzaType());
+	}
+	@Test	
+	public void pizzaPizzaType_MeatLovers_WrongType() throws PizzaException{
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		assertNotEquals("Vegetarian", aPizza.getPizzaType());
+	}
+	@Test	
+	public void pizzaPizzaType_Vegetarian_WrongType() throws PizzaException{
+		VegetarianPizza aPizza = new VegetarianPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		assertNotEquals("Margherita", aPizza.getPizzaType());
+	}
+	@Test	
+	public void pizzaPizzaType_Margerita_WrongType() throws PizzaException{
+		MargheritaPizza aPizza = new MargheritaPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		assertNotEquals("Meat Lovers", aPizza.getPizzaType());
 	}
 	@Test	
 	public void pizzaQuantity() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
 		assertEquals(1, aPizza.getQuantity());
 	}
+	@Test(expected=PizzaException.class)	
+	public void pizzaQuantity_Negative() throws PizzaException{
+		MeatLoversPizza aPizza = new MeatLoversPizza(-1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+	}
+	@Test(expected=PizzaException.class)	
+	public void pizzaQuantity_OverOrder() throws PizzaException{
+		MeatLoversPizza aPizza = new MeatLoversPizza(11, LocalTime.of(19, 00), LocalTime.of(19, 00));
+	}
 	@Test	
 	public void pizzaCostPerPizza() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
-		int i = (int) aPizza.getCostPerPizza();
-		assertEquals(12, i);
+		double i = aPizza.getCostPerPizza();
+		assertEquals(Double.doubleToLongBits(1.50), Double.doubleToLongBits(i));
 	}
 	@Test	
 	public void pizzaOrderCost() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
 		int i = (int) aPizza.getOrderCost();
 		assertEquals(12, i);
+	}
+	@Test	
+	public void pizzaOrderCost_Multiple() throws PizzaException{
+		MeatLoversPizza aPizza = new MeatLoversPizza(3, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		int i = (int) aPizza.getOrderCost();
+		assertEquals(36, i);
 	}
 	@Test	
 	public void pizzaOrderPrice() throws PizzaException{
@@ -54,11 +95,24 @@ public class PizzaTests {
 		assertEquals(12, i);
 	}
 	@Test	
-	public void pizzaPricePerPizza() throws PizzaException{
+	public void pizzaPricePerPizza_MeatLovers() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
 		int i = (int) aPizza.getPricePerPizza();
 		assertEquals(12, i);
 	}
+	@Test	
+	public void pizzaPricePerPizza_Vegetarian() throws PizzaException{
+		VegetarianPizza aPizza = new VegetarianPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		int i = (int) aPizza.getPricePerPizza();
+		assertEquals(10, i);
+	}
+	@Test	
+	public void pizzaPricePerPizza_Margherita() throws PizzaException{
+		MargheritaPizza aPizza = new MargheritaPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
+		int i = (int) aPizza.getPricePerPizza();
+		assertEquals(8, i);
+	}
+	
 	
 	
 	

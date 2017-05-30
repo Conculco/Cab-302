@@ -18,6 +18,8 @@ public class MeatLoversPizza extends Pizza {
 	private int quantity;
 	private LocalTime orderTime;
 	private LocalTime deliveryTime;
+	private PizzaTopping[] MeatLoversToppings;
+
 	
 	/**
 	 * 
@@ -37,6 +39,7 @@ public class MeatLoversPizza extends Pizza {
 	 */
 	public MeatLoversPizza(int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException {
 		super(quantity, orderTime, deliveryTime, "Meat Lovers", 12.00);
+
 		if(quantity < 1)
 		{
 			throw new PizzaException("Order contains less than one pizza");
