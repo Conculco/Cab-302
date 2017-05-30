@@ -39,7 +39,7 @@ public class PickUpCustomer extends Customer {
 			throw new CustomerException("Name entered is invalid");
 		}
 		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 9)
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10)
 		{
 			this.mobileNumber = mobileNumber;
 		}
@@ -58,8 +58,7 @@ public class PickUpCustomer extends Customer {
 	 */
 	@Override
 	public double getDeliveryDistance() {
-		double distance = getLocationX() + getLocationY();
-		return distance;
+		return 0;
 	}
 
 }

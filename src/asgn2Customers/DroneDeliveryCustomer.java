@@ -40,7 +40,7 @@ public class DroneDeliveryCustomer extends Customer {
 			throw new CustomerException("Name entered is invalid");
 		}
 		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 9)
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10)
 		{
 			this.mobileNumber = mobileNumber;
 		}
@@ -60,9 +60,9 @@ public class DroneDeliveryCustomer extends Customer {
 	 */
 	@Override
 	public double getDeliveryDistance() {
-		double x = getLocationX();
-		double y = getLocationY();
-		return Math.sqrt(x*x) + Math.sqrt(y*y);
+		double x1 = getLocationX();
+		double y1 = getLocationY();
+		return Math.sqrt((x1*x1) + (y1*y1));
 	}
 	
 
