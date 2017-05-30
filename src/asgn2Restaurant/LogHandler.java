@@ -70,7 +70,27 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Pizza> populatePizzaDataset(String filename) throws PizzaException, LogHandlerException{
-		// TO DO
+		FileInputStream fstream;
+		try {
+			fstream = new FileInputStream(filename);
+				try{
+					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
+					String strLine;
+					while ((strLine = s.readLine()) != null)   {
+						System.out.println (strLine);
+					}
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<Pizza> pizza = new ArrayList<Pizza>();
+		return pizza;
 	}		
 
 	
