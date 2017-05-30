@@ -145,6 +145,32 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		      constraints.gridheight = h;
 		      jp.add(c, constraints);
 	}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//Get event source 
+			Object src=e.getSource(); 
+			      
+			//Consider the alternatives - not all active at once. 
+			if (src== btnLoad) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(this);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+			} else if (src==btnUnload) {
+				JButton btn = ((JButton) src);
+			      areDisplay.setText(btn.getText().trim());
+			} else if (src==btnSwitch) {
+				JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
+			} else if (src==btnFind) {
+				JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
+			}
+			
+
+			
+		}
 	   
 		/**
 		 * @param args
