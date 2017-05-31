@@ -86,31 +86,20 @@ public abstract class Pizza  {
 		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza")))
 		{
 			System.out.println(s);
-			pizzaCost = PizzaTopping.BACON.getCost() + PizzaTopping.CHEESE.getCost() + 
-					PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost() +
-					PizzaTopping.TOMATO.getCost();
+			pizzaCost = PizzaTopping.BACON.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
-			System.out.println(pizzaCost);
 		}
 		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza")))
 		{
-			System.out.println(s);
-			pizzaCost = PizzaTopping.EGGPLANT.getCost() + PizzaTopping.MUSHROOM.getCost() + 
-					PizzaTopping.CAPSICUM.getCost() + PizzaTopping.CHEESE.getCost() +
-					PizzaTopping.TOMATO.getCost();
+			pizzaCost = PizzaTopping.EGGPLANT.getCost() + PizzaTopping.MUSHROOM.getCost() + PizzaTopping.CAPSICUM.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
-			System.out.println(pizzaCost);
 		}
 		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza")))
 		{
-			System.out.println(s);
 			pizzaCost = PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
-			System.out.println(pizzaCost);
 		}
-		//System.out.println(s);
 		this.cost = pizzaCost;
-		System.out.println(pizzaCost);
 	}
 	
 	/**
@@ -127,22 +116,21 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza is sold to the customer.
 	 */
 	public final double getPricePerPizza(){
-		if(this.type.equals(new String("Margherita")))
-		{
-			return price = 8;
-		}
-		else if(type.equals(new String("Vegetarian")))
-		{ 
-			return price = 10;
-		}
-		else if(type.equals(new String("Meat Lovers")))
+		double pizzaCost = 0;
+		String s = getClass().getName();
+		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza")))
 		{
 			return price = 12;
 		}
-		else 
+		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza")))
 		{
-			return price;
+			return price = 10;
 		}
+		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza")))
+		{
+			return price = 8;
+		}
+		return price;
 	}
 
 	/**
@@ -177,7 +165,8 @@ public abstract class Pizza  {
 	 * @return Returns  true if the instance of Pizza contains the specified topping and false otherwise.
 	 */
 	public final boolean containsTopping(PizzaTopping topping){
-		if(topping.name().equals(anObject)
+		return true;
+		//if(topping.name().equals(anObject)
 	}
 	
 	/**
