@@ -22,6 +22,7 @@ public abstract class Pizza  {
 	private String type;
 	private double cost;
 	private double price;
+	private PizzaTopping[] toppingArray = new PizzaTopping[8];
 	
 	/**
 	 *  This class represents a pizza produced at the Pizza Palace restaurant.  A detailed description of the class's fields
@@ -69,6 +70,7 @@ public abstract class Pizza  {
 		{
 			throw new PizzaException("Pizza be whack yo, ain't got dis flava homie");
 		}
+		this.price = price;
 		
 	}
 
@@ -80,33 +82,35 @@ public abstract class Pizza  {
 	 */
 	public final void calculateCostPerPizza(){
 		double pizzaCost = 0;
-		for (PizzaTopping p : PizzaTopping.values()){
-			if(containsTopping(p.CHEESE)){
-				pizzaCost += p.CHEESE.getCost();
-			}
-			if(containsTopping(p.TOMATO)){
-				pizzaCost += p.TOMATO.getCost();
-			}
-			if(containsTopping(p.BACON)){
-				pizzaCost += p.BACON.getCost();
-			}
-			if(containsTopping(p.SALAMI)){
-				pizzaCost += p.SALAMI.getCost();
-			}
-			if(containsTopping(p.PEPPERONI)){
-				pizzaCost += p.PEPPERONI.getCost();
-			}
-			if(containsTopping(p.CAPSICUM)){
-				pizzaCost += p.CAPSICUM.getCost();
-			}
-			if(containsTopping(p.MUSHROOM)){
-				pizzaCost += p.MUSHROOM.getCost();
-			}
-			if(containsTopping(p.EGGPLANT)){
-				pizzaCost += p.EGGPLANT.getCost();
-			}
+		String s = getClass().getName();
+		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza")))
+		{
+			System.out.println(s);
+			pizzaCost = PizzaTopping.BACON.getCost() + PizzaTopping.CHEESE.getCost() + 
+					PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost() +
+					PizzaTopping.TOMATO.getCost();
+			this.cost = pizzaCost;
+			System.out.println(pizzaCost);
 		}
+		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza")))
+		{
+			System.out.println(s);
+			pizzaCost = PizzaTopping.EGGPLANT.getCost() + PizzaTopping.MUSHROOM.getCost() + 
+					PizzaTopping.CAPSICUM.getCost() + PizzaTopping.CHEESE.getCost() +
+					PizzaTopping.TOMATO.getCost();
+			this.cost = pizzaCost;
+			System.out.println(pizzaCost);
+		}
+		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza")))
+		{
+			System.out.println(s);
+			pizzaCost = PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost();
+			this.cost = pizzaCost;
+			System.out.println(pizzaCost);
+		}
+		//System.out.println(s);
 		this.cost = pizzaCost;
+		System.out.println(pizzaCost);
 	}
 	
 	/**
@@ -114,11 +118,8 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza costs to make.
 	 */
 	public final double getCostPerPizza(){
-		for (PizzaTopping p : PizzaTopping.values())
-		{
-			return p.getCost();
-		}
-		return this.price = 0.00;
+		calculateCostPerPizza();
+		return this.cost;
 	}
 
 	/**
@@ -149,7 +150,7 @@ public abstract class Pizza  {
 	 * @return The amount that the entire order costs to make, taking into account the type and quantity of pizzas. 
 	 */
 	public final double getOrderCost(){
-		return getPricePerPizza() * getQuantity();
+		return getCostPerPizza() * getQuantity();
 	}
 	
 	/**
@@ -176,32 +177,7 @@ public abstract class Pizza  {
 	 * @return Returns  true if the instance of Pizza contains the specified topping and false otherwise.
 	 */
 	public final boolean containsTopping(PizzaTopping topping){
-		if(this.type.equals(new String("Margherita")))
-		{
-			if(topping.name().equals("CHEESE") || topping.name().equals("TOMATO"))
-			{
-				return true;
-			}
-		}
-		if(this.type.equals(new String("Vegetarian")))
-		{
-			if(topping.name().equals("CHEESE") || topping.name().equals("TOMATO") 
-					|| topping.name().equals("EGGPLANT") || topping.name().equals("MUSHROOM") 
-					|| topping.name().equals("CAPSICUM"))
-			{
-				return true;
-			}
-		}
-		if(this.type.equals(new String("Meat Lovers")))
-		{
-			if(topping.name().equals("CHEESE") || topping.name().equals("TOMATO") 
-					|| topping.name().equals("BACON") || topping.name().equals("PEPPARONI") 
-					|| topping.name().equals("SALAMI"))
-			{
-				return true;
-			}
-		}
-		return false;
+		if(topping.name().equals(anObject)
 	}
 	
 	/**

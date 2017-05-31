@@ -80,13 +80,10 @@ public class LogHandler {
 						System.out.println (strLine);
 					}
 				}
-				catch (IOException e)
-				{
-					// TODO Auto-generated catch block
+				catch (IOException e){
 					e.printStackTrace();
 				}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ArrayList<Pizza> pizza = new ArrayList<Pizza>();
