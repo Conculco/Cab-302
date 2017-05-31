@@ -4,9 +4,12 @@ package asgn2Restaurant;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import asgn2Customers.Customer;
@@ -15,6 +18,8 @@ import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
+import asgn2Pizzas.PizzaFactory;
+
 import java.util.regex.*;
 
 /**
@@ -27,6 +32,7 @@ import java.util.regex.*;
  *
  */
 public class LogHandler {
+	private final static String COMMA = ",";
 
 
 	/**
@@ -118,24 +124,34 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Pizza> populatePizzaDataset(String filename) throws PizzaException, LogHandlerException{
-		FileInputStream fstream;
+		ArrayList<Pizza> pizza = new ArrayList<Pizza>();
+		String thisLine = null;
 		try {
-			fstream = new FileInputStream(filename);
-				try{
-					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
-					String strLine;
-					while ((strLine = s.readLine()) != null)   {
-						System.out.println (strLine);
-					}
-				}
-				catch (IOException e){
-					e.printStackTrace();
-				}
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			while ((thisLine = br.readLine()) != null) {
+				String[] compArr = thisLine.split(COMMA);
+				
+				//Load Elements of array into correct format for getPizza()
+				String pizzaCode = compArr[7];
+				int QTY = Integer.parseInt(compArr[8]);
+				LocalTime orderTime = LocalTime.parse(compArr[0]);
+				LocalTime deliveryTime = LocalTime.parse(compArr[1]);
+				
+				System.out.println(pizzaCode);
+				System.out.println(QTY);
+				System.out.println(orderTime);
+				System.out.println(deliveryTime);
+				
+				//String pizzaCode, int quantity, LocalTime orderTime, LocalTime deliveryTime
+				pizza.add(PizzaFactory.getPizza(pizzaCode, QTY, orderTime, deliveryTime));
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		ArrayList<Pizza> pizza = new ArrayList<Pizza>();
-		return pizza;
+   	    return pizza;
 	}		
 
 	

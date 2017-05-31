@@ -2,14 +2,13 @@ package asgn2Tests;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import asgn2Customers.Customer;
-import asgn2Exceptions.CustomerException;
+import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
+import asgn2Pizzas.Pizza;
 import asgn2Restaurant.LogHandler;
 
 /** A class that tests the methods relating to the creation of Pizza objects in the asgn2Restaurant.LogHander class.
@@ -19,14 +18,27 @@ import asgn2Restaurant.LogHandler;
 */
 public class LogHandlerPizzaTests {
 	@Test	
-	public void ReadLogFile() throws PizzaException, IOException{
-		ArrayList<Customer> i;
-		try {
-		i = LogHandler.populateCustomerDataset("C:/Users/Joshua/git/Cab-302/logs/20170102.txt");
-			System.out.println(i);
-		} catch (CustomerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}	
+	public void ReadLogFile0() throws PizzaException, IOException, LogHandlerException{
+		ArrayList<Pizza> pizza;
+		pizza = LogHandler.populatePizzaDataset("./logs/20170101.txt");
+		System.out.println(pizza);
+		assertEquals(2, pizza.get(0).getQuantity());
+		assertEquals("Vegetarian", pizza.get(0).getPizzaType());
+	}
+	@Test	
+	public void ReadLogFile1() throws PizzaException, IOException, LogHandlerException{
+		ArrayList<Pizza> pizza;
+		pizza = LogHandler.populatePizzaDataset("./logs/20170101.txt");
+		System.out.println(pizza);
+		assertEquals(1, pizza.get(1).getQuantity());
+		assertEquals("Meat Lovers", pizza.get(1).getPizzaType());
+	}
+	@Test	
+	public void ReadLogFile2() throws PizzaException, IOException, LogHandlerException{
+		ArrayList<Pizza> pizza;
+		pizza = LogHandler.populatePizzaDataset("./logs/20170101.txt");
+		System.out.println(pizza);
+		assertEquals(3, pizza.get(2).getQuantity());
+		assertEquals("Margherita", pizza.get(2).getPizzaType());
+	}
 }

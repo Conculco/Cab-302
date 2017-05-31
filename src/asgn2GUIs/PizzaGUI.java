@@ -240,7 +240,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			}  
 		}
 		if (src==btnUnload) {
-			//areDisplay.setText("");
+			textCustomerName.setText("");
 		}
 		if (src==btnSwitch) {
 			JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
