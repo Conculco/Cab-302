@@ -226,15 +226,29 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			}  
 		}
 		if (src==btnUnload) {
+			index = 0;
+			fileName = "";
+			textPizzaType.setText("");
+			textPizzaQty.setText("");
+			textPizzaPrice.setText("");
+			textPizzaCost.setText("");
+			textPizzaProfit.setText("");
 			textCustomerName.setText("");
+			textCustomerMobile.setText("");
+			textCustomerType.setText("");
+			textCustomerX.setText("");
+			textCustomerY.setText("");
+			textCustomerDistance.setText("");
 		}
 		if (src==btnNext) {
 			index++;
 			updateText(index);
 		}
 		if (src==btnBack) {
-			index--;
-			updateText(index);
+			if(index>0){
+				index--;
+				updateText(index);
+			}
 		}
 	}
 
