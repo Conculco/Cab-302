@@ -18,6 +18,14 @@ import asgn2Restaurant.LogHandler;
 */
 public class LogHandlerPizzaTests {
 	@Test	
+	public void ClassTest() throws IOException, LogHandlerException, PizzaException{
+		ArrayList<Pizza> pizza;
+		pizza = LogHandler.populatePizzaDataset("./logs/20170101.txt");
+		System.out.println(pizza);
+		assertEquals("asgn2Pizzas.VegetarianPizza", pizza.get(0).getClass().getName());
+	}
+	
+	@Test	
 	public void ReadLogFile0() throws PizzaException, IOException, LogHandlerException{
 		ArrayList<Pizza> pizza;
 		pizza = LogHandler.populatePizzaDataset("./logs/20170101.txt");

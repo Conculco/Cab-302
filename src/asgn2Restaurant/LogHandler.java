@@ -44,7 +44,7 @@ public class LogHandler {
 	 * @throws IOException 
 	 * 
 	 */
-	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException{
+	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
 		FileInputStream fstream;
 		ArrayList<Customer> cust = new ArrayList<Customer>();
 		String num = "";

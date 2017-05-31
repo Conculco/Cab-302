@@ -19,6 +19,14 @@ import asgn2Restaurant.LogHandler;
  */
 public class LogHandlerCustomerTests {
 	@Test	
+	public void ClassTest() throws IOException, LogHandlerException, CustomerException{
+		ArrayList<Customer> Customer;
+		Customer = LogHandler.populateCustomerDataset("./logs/20170101.txt");
+		System.out.println(Customer);
+		assertEquals("asgn2Customers.DriverDeliveryCustomer", Customer.get(0).getClass().getName());
+	}
+	
+	@Test	
 	public void ReadLogFile0() throws IOException, LogHandlerException, CustomerException{
 		ArrayList<Customer> Customer;
 		Customer = LogHandler.populateCustomerDataset("./logs/20170101.txt");
@@ -48,7 +56,7 @@ public class LogHandlerCustomerTests {
 		assertEquals("Oroku Saki", Customer.get(2).getName());
 		assertEquals("0111222333", Customer.get(2).getMobileNumber());
 		assertEquals("Driver Delivery", Customer.get(2).getCustomerType());
-		assertEquals(0, Customer.get(2).getLocationX());
-		assertEquals(0, Customer.get(2).getLocationY());
+		assertEquals(3, Customer.get(2).getLocationX());
+		assertEquals(4, Customer.get(2).getLocationY());
 	}
 }
