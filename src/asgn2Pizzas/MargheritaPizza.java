@@ -39,6 +39,7 @@ public class MargheritaPizza extends Pizza {
 	 */
 	public MargheritaPizza(int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException {
 		super(quantity, orderTime, deliveryTime, "Margherita", 8.00);
+		
 		if(quantity < 1)
 		{
 			throw new PizzaException("Order contains less than one pizza");
