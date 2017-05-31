@@ -44,22 +44,34 @@ import javax.swing.*;
  */
 public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionListener {
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 800;
+	public static final int WIDTH = 400;
 	public static final int HEIGHT = 400;
 	
-
+	//Panel
 	private JPanel pnlDisplay;
-	private JPanel pnlTwo;
 	private JPanel pnlBtn;
-	private JPanel pnlFour;
-	private JPanel pnlFive;
 	
+	//Buttons
 	private JButton btnLoad;
 	private JButton btnUnload;
 	private JButton btnFind;
 	private JButton btnSwitch;
 	
-	private JTextArea areDisplay; 
+	//TextFields Customers
+	private JTextField textCustomerName;
+	private JTextField textCustomerMobile;
+	private JTextField textCustomerType;
+	private JTextField textCustomerX;
+	private JTextField textCustomerY;
+	private JTextField textCustomerDistance;
+	
+	//TextFields Pizza
+	private JTextField textPizzaType;
+	private JTextField textPizzaQty;
+	private JTextField textPizzaPrice;
+	private JTextField textPizzaCost;
+	private JTextField textPizzaProfit;
+
 	
 	/**
 	 * Creates a new Pizza GUI with the specified title 
@@ -76,35 +88,70 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    setLayout(new BorderLayout());
 	    
 	    pnlDisplay = createPanel(Color.WHITE);
-	    pnlTwo = createPanel(Color.LIGHT_GRAY);
 	    pnlBtn = createPanel(Color.LIGHT_GRAY);
-	    pnlFour = createPanel(Color.LIGHT_GRAY);
-	    pnlFive = createPanel(Color.LIGHT_GRAY);
-	    
+
 	    btnLoad = createButton("Load");
 	    btnUnload = createButton("Unload");
 	    btnFind = createButton("Find");
 	    btnSwitch = createButton("Switch");
+	    //Place Buttons ON GUI 
 	    
-	    areDisplay = createTextArea();
 	    
-	    pnlDisplay.setLayout(new BorderLayout());
-	    pnlDisplay.add(areDisplay, BorderLayout.CENTER);
-	 
-	    layoutButtonPanel(); 
-	    
-	    this.getContentPane().add(pnlDisplay,BorderLayout.CENTER);
-	    this.getContentPane().add(pnlTwo,BorderLayout.NORTH);
+	    textCustomerName = createTextField();
+		textCustomerMobile = createTextField();
+		textCustomerType = createTextField();
+		textCustomerX = createTextField();
+		textCustomerY = createTextField();
+		textCustomerDistance = createTextField();
+		
+		textPizzaType = createTextField();
+		textPizzaQty = createTextField();
+		textPizzaPrice = createTextField();
+		textPizzaCost = createTextField();
+		textPizzaProfit = createTextField();
+		
+
+		GridLayout Layout = new GridLayout(0,2);
+		pnlDisplay.setLayout(Layout);
+		pnlDisplay.add(new JLabel("Customers "));
+		pnlDisplay.add(new JLabel(""));
+		pnlDisplay.add(new JLabel("Customer: "));
+		pnlDisplay.add(textCustomerName);
+		pnlDisplay.add(new JLabel("Customer Mobile: "));
+		pnlDisplay.add(textCustomerMobile);
+		pnlDisplay.add(new JLabel("Customer Type: "));
+		pnlDisplay.add(textCustomerType);
+		pnlDisplay.add(new JLabel("Customer X: "));
+		pnlDisplay.add(textCustomerX);
+		pnlDisplay.add(new JLabel("Customer Y: "));
+		pnlDisplay.add(textCustomerY);
+		pnlDisplay.add(new JLabel("Customer Distance: "));
+		pnlDisplay.add(textCustomerDistance);
+		
+		pnlDisplay.add(new JLabel("Pizza's "));
+		pnlDisplay.add(new JLabel(""));
+		pnlDisplay.add(new JLabel("Pizza Type: "));
+		pnlDisplay.add(textPizzaType);
+		pnlDisplay.add(new JLabel("Pizza Qty: "));
+		pnlDisplay.add(textPizzaQty);
+		pnlDisplay.add(new JLabel("Pizza Price: "));
+		pnlDisplay.add(textPizzaPrice);
+		pnlDisplay.add(new JLabel("Pizza Cost: "));
+		pnlDisplay.add(textPizzaCost);
+		pnlDisplay.add(new JLabel("Pizza Profit: "));
+		pnlDisplay.add(textPizzaProfit);
+		
+		layoutButtonPanel(); 
+		
+		this.getContentPane().add(pnlDisplay,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlBtn,BorderLayout.SOUTH);
-	    this.getContentPane().add(pnlFour,BorderLayout.EAST);
-	    this.getContentPane().add(pnlFive,BorderLayout.WEST);
+
 	    repaint(); 
 	    this.setVisible(true);
 	}
 	
 	@Override
 	public void run() {
-		// TO DO
 		createGUI();
 	}
 
@@ -114,19 +161,16 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		return jp;
 	}
 	
-	private JButton createButton(String str) {
-		JButton jb = new JButton(str); 
+	private JButton createButton(String name) {
+		JButton jb = new JButton(name); 
 		jb.addActionListener(this);
 		return jb; 
 	}
 	
-	private JTextArea createTextArea() {
-		JTextArea jta = new JTextArea(); 
-		jta.setEditable(false);
-		jta.setLineWrap(true);
-		jta.setFont(new Font("Arial",Font.BOLD,24));
-		jta.setBorder(BorderFactory.createEtchedBorder());
-		return jta;
+	private JTextField createTextField() {
+		JTextField jtf = new JTextField("",30);
+		jtf.addActionListener(this);
+		return jtf;
 	}
 	
 	private void layoutButtonPanel() {
@@ -141,21 +185,23 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    constraints.anchor = GridBagConstraints.CENTER;
 	    constraints.weightx = 100;
 	    constraints.weighty = 100;
-	    
+
+	    //Add Buttons to GUI
 	    addToPanel(pnlBtn, btnLoad,constraints,0,0,2,1); 
 	    addToPanel(pnlBtn, btnUnload,constraints,3,0,2,1); 
 	    addToPanel(pnlBtn, btnFind,constraints,0,2,2,1); 
 	    addToPanel(pnlBtn, btnSwitch,constraints,3,2,2,1); 	
 	}
 	
-	   private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
+	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
 		      constraints.gridx = x;
 		      constraints.gridy = y;
 		      constraints.gridwidth = w;
 		      constraints.gridheight = h;
 		      jp.add(c, constraints);
 	}
-		@Override
+	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Get event source 
 		Object src=e.getSource(); 
@@ -177,8 +223,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 							String strLine;
 							while ((strLine = s.readLine()) != null)   {
 								System.out.println (strLine);
-								areDisplay.append(strLine);
-								areDisplay.append("\n");
+								//areDisplay.append(strLine);
+								//areDisplay.append("\n");
 							}
 						}
 						catch (IOException e1)
@@ -194,7 +240,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			}  
 		}
 		if (src==btnUnload) {
-			areDisplay.setText("");
+			//areDisplay.setText("");
 		}
 		if (src==btnSwitch) {
 			JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
@@ -204,16 +250,10 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		}
 	}
 
-
-
-	   
-		/**
-		 * @param args
-		 */
-		public static void main(String[] args) {
+	public static void main(String[] args) {
 		    JFrame.setDefaultLookAndFeelDecorated(true);
 	        SwingUtilities.invokeLater(new PizzaGUI("BorderLayout"));
-		}
+	}
 	
 
 }
