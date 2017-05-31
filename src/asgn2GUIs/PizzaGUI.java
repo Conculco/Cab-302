@@ -21,7 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.text.DefaultCaret;
 
 import asgn2Customers.Customer;
+import asgn2Exceptions.CustomerException;
+import asgn2Exceptions.LogHandlerException;
+import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
+import asgn2Restaurant.LogHandler;
 import asgn2Restaurant.PizzaRestaurant;
 
 import javax.swing.JFrame;
@@ -54,8 +58,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	//Buttons
 	private JButton btnLoad;
 	private JButton btnUnload;
-	private JButton btnFind;
-	private JButton btnSwitch;
+	private JButton btnBack;
+	private JButton btnNext;
 	
 	//TextFields Customers
 	private JTextField textCustomerName;
@@ -71,6 +75,9 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private JTextField textPizzaPrice;
 	private JTextField textPizzaCost;
 	private JTextField textPizzaProfit;
+	
+	String fileName = "";
+	int index = 0;
 
 	
 	/**
@@ -92,8 +99,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 
 	    btnLoad = createButton("Load");
 	    btnUnload = createButton("Unload");
-	    btnFind = createButton("Find");
-	    btnSwitch = createButton("Switch");
+	    btnBack = createButton("Back");
+	    btnNext = createButton("Next");
 	    //Place Buttons ON GUI 
 	    
 	    
@@ -189,8 +196,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    //Add Buttons to GUI
 	    addToPanel(pnlBtn, btnLoad,constraints,0,0,2,1); 
 	    addToPanel(pnlBtn, btnUnload,constraints,3,0,2,1); 
-	    addToPanel(pnlBtn, btnFind,constraints,0,2,2,1); 
-	    addToPanel(pnlBtn, btnSwitch,constraints,3,2,2,1); 	
+	    addToPanel(pnlBtn, btnBack,constraints,0,2,2,1); 
+	    addToPanel(pnlBtn, btnNext,constraints,3,2,2,1); 	
 	}
 	
 	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
@@ -203,6 +210,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		//Get event source 
 		Object src=e.getSource(); 
 	      
@@ -213,43 +221,54 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			int result = fileChooser.showOpenDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION) {
 			    File selectedFile = fileChooser.getSelectedFile();
-			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-			    
-				FileInputStream fstream;
-				try {
-					fstream = new FileInputStream(selectedFile.getAbsolutePath());
-						try{
-							BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
-							String strLine;
-							while ((strLine = s.readLine()) != null)   {
-								System.out.println (strLine);
-								//areDisplay.append(strLine);
-								//areDisplay.append("\n");
-							}
-						}
-						catch (IOException e1)
-						{
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			    
+			    fileName = selectedFile.toString();
+			    updateText(index);
 			}  
 		}
 		if (src==btnUnload) {
 			textCustomerName.setText("");
 		}
-		if (src==btnSwitch) {
-			JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
+		if (src==btnNext) {
+			index++;
+			updateText(index);
 		}
-		if (src==btnFind) {
-			JOptionPane.showMessageDialog(this,"An Error Message","Wiring Class: Error",JOptionPane.ERROR_MESSAGE);
+		if (src==btnBack) {
+			index--;
+			updateText(index);
 		}
 	}
 
+	public void updateText(int index){
+		try {
+			ArrayList<Pizza> pizza;
+			pizza = LogHandler.populatePizzaDataset(fileName);
+			textPizzaType.setText(pizza.get(index).getPizzaType());
+			textPizzaQty.setText(String.valueOf(pizza.get(index).getQuantity()));
+			textPizzaPrice.setText(String.valueOf(pizza.get(index).getOrderPrice()));
+			textPizzaCost.setText(String.valueOf(pizza.get(index).getOrderCost()));
+			textPizzaProfit.setText(String.valueOf(pizza.get(index).getOrderProfit()));
+			
+			ArrayList<Customer> Customer;
+			Customer = LogHandler.populateCustomerDataset(fileName);
+			textCustomerName.setText(Customer.get(index).getName());
+			textCustomerMobile.setText(Customer.get(index).getMobileNumber());
+			textCustomerType.setText(Customer.get(index).getCustomerType());
+			textCustomerX.setText(String.valueOf(Customer.get(index).getLocationX()));
+			textCustomerY.setText(String.valueOf(Customer.get(index).getLocationY()));
+			textCustomerDistance.setText(String.valueOf(Customer.get(index).getDeliveryDistance()));
+
+		} catch (PizzaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (LogHandlerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (CustomerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		    JFrame.setDefaultLookAndFeelDecorated(true);
 	        SwingUtilities.invokeLater(new PizzaGUI("BorderLayout"));
