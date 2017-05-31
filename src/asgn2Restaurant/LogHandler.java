@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import asgn2Customers.Customer;
+import asgn2Customers.CustomerFactory;
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
+import java.util.regex.*;
 
 /**
  *
@@ -25,7 +27,6 @@ import asgn2Pizzas.Pizza;
  *
  */
 public class LogHandler {
-	
 
 
 	/**
@@ -39,14 +40,61 @@ public class LogHandler {
 	 */
 	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException{
 		FileInputStream fstream;
+		ArrayList<Customer> cust = new ArrayList<Customer>();
+		String num = "";
+		String name = "";
+		String slocx = "";
+		int locx = 0;
+		String slocy = "";
+		int locy = 0;
+		String type = "";
 		try {
 			fstream = new FileInputStream(filename);
 				try{
 					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
 					String strLine;
 					while ((strLine = s.readLine()) != null)   {
-						System.out.println (strLine);
+						//System.out.println(strLine);
+						Pattern findName = Pattern.compile("([A-Z])\\w+ ([A-Z])\\w+");
+						Matcher matchName = findName.matcher(strLine);
+						while(matchName.find())
+						{
+							name = matchName.group();
+							//System.out.println(matchName.group());
+						}
+						Pattern findNum = Pattern.compile("([0-9]){10}");
+						Matcher matchNum = findNum.matcher(strLine);
+						while(matchNum.find())
+						{
+							//System.out.println(matchNum.group());
+							num = matchNum.group();
+						}
+						Pattern findLocX = Pattern.compile(",-*[0-9],");
+						Matcher matchLocX = findLocX.matcher(strLine);
+						while(matchLocX.find())
+						{
+							//System.out.println(matchLocX.group());
+							slocx = matchLocX.group().replace(",", "");
+							locx = Integer.parseInt(slocx);
+						}
+						Pattern findLocY = Pattern.compile(",[0-9],P");
+						Matcher matchLocY = findLocY.matcher(strLine);
+						while(matchLocY.find())
+						{
+							//System.out.println(matchLocY.group());
+							slocy = matchLocY.group().replace(",", "").replace("P", "");
+							locy = Integer.parseInt(slocy);
+						}
+						Pattern findType = Pattern.compile("PUC|DNC|DVC");
+						Matcher matchType = findType.matcher(strLine);
+						while(matchType.find())
+						{
+							//System.out.println(matchType.group());
+							type = matchType.group();
+						}
+						cust.add(CustomerFactory.getCustomer(type, name, num, locx, locy));
 					}
+					
 				}
 				catch (IOException e)
 				{
@@ -57,7 +105,7 @@ public class LogHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<Customer> cust = new ArrayList<Customer>();
+		System.out.println(cust.iterator().toString());
 		return cust;
 	}		
 

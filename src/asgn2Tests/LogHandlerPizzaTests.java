@@ -22,7 +22,8 @@ public class LogHandlerPizzaTests {
 	public void ReadLogFile() throws PizzaException, IOException{
 		ArrayList<Customer> i;
 		try {
-			i = LogHandler.populateCustomerDataset("C:/Users/josh/git/Cab-302/logs/20170103.txt");
+		i = LogHandler.populateCustomerDataset("C:/Users/Joshua/git/Cab-302/logs/20170102.txt");
+			System.out.println(i);
 		} catch (CustomerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
