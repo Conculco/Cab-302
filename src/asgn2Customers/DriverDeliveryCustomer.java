@@ -50,8 +50,14 @@ public class DriverDeliveryCustomer extends Customer {
 		else {
 			throw new CustomerException("The phone number entered is invalid");
 		}
-		this.locationX = locationX;
-		this.locationY = locationY;
+		if(locationX > 10 || locationX < - 10 || locationY > 10 || locationY < - 10 || getDeliveryDistance() == 0) {
+			throw new CustomerException("Delivery Distance is too much");
+		}
+		else {
+			this.locationX = locationX;
+			this.locationY = locationY;
+		}
+		
 	}
 	
 	/**

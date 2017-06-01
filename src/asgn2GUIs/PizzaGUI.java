@@ -269,7 +269,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			    //Button Gray Out
 			    btnUnload.setEnabled(true);
 			    btnNext.setEnabled(true); 
-			    btnDaily.setEnabled(true); 
+			    btnDaily.setEnabled(true);
+			    btnLoad.setEnabled(false);
 			    
 			}  
 		}
@@ -297,6 +298,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		    btnBack.setEnabled(false); 
 		    btnNext.setEnabled(false); 
 		    btnDaily.setEnabled(false); 
+		    btnLoad.setEnabled(true);
 		}
 		if (src==btnNext) {
 			btnBack.setEnabled(true);

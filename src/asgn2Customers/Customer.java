@@ -1,6 +1,7 @@
 package asgn2Customers;
 
 import asgn2Exceptions.CustomerException;
+import java.util.regex.*;
 
 /** An abstract class to represent a customer at the Pizza Palace restaurant.
  *  The Customer class is used as a base class of PickUpCustomer, 
@@ -34,14 +35,16 @@ public abstract class Customer {
 	 * 
 	 */
 	public Customer(String name, String mobileNumber, int locationX, int locationY, String type) throws CustomerException{
-		this.name = name; 
 		this.locationX = locationX;
 		this.locationY = locationY;
-		if (name.length() <= 0) {
+		if (name.length() >= 1) {
+			this.name = name;
+		}
+		else {
 			throw new CustomerException("Name entered is invalid");
 		}
-		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10) {
+		String regex = "[0-9]+";
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10 && mobileNumber.matches(regex)) {
 			this.mobileNumber = mobileNumber;
 		}
 		else {
