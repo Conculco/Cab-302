@@ -47,9 +47,10 @@ import javax.swing.*;
  *
  */
 public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionListener {
-	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 400;
-	public static final int HEIGHT = 500;
+	private static final long serialVersionUID = 1L;
+	//Window Width/Height
+	private static final int WIDTH = 400;
+	private static final int HEIGHT = 500;
 	
 	//Panel
 	private JPanel pnlDisplay;
@@ -94,8 +95,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	 * @param title - The title for the supertype JFrame
 	 */
 	public PizzaGUI(String title) {
-		// TO DO
-		
+		this.setTitle(title);
 	}
 
 	private void createGUI() {
@@ -179,7 +179,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		pnlDisplay.add(new JLabel("Daily Customer Distance: "));
 		pnlDisplay.add(textDailyDistance);
 		
-		
 		layoutButtonPanel(); 
 		
 		this.getContentPane().add(pnlDisplay,BorderLayout.CENTER);
@@ -252,7 +251,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		//Get event source 
 		Object src=e.getSource(); 
 	      
@@ -276,6 +274,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		}
 		if (src==btnUnload) {
 			index = 0;
+			fileIndexSize = 0;
 			fileName = "";
 			textPizzaType.setText("");
 			textPizzaQty.setText("");
@@ -318,6 +317,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			updateText(index);
 		}
 		if (src==btnDaily) {
+			btnDaily.setEnabled(false);
+			
 			ArrayList<Pizza> pizza = null;
 			ArrayList<Customer> Customer = null;
 			try {
@@ -390,11 +391,4 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			e1.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) {
-		    JFrame.setDefaultLookAndFeelDecorated(true);
-	        SwingUtilities.invokeLater(new PizzaGUI("BorderLayout"));
-	}
-	
-
 }
