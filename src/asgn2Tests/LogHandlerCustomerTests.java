@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import asgn2Customers.Customer;
+import asgn2Customers.CustomerFactory;
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
+import asgn2Exceptions.PizzaException;
+import asgn2Pizzas.Pizza;
 import asgn2Restaurant.LogHandler;
 
 /**
@@ -44,9 +47,9 @@ public class LogHandlerCustomerTests {
 		System.out.println(Customer);
 		assertEquals("April O'Neal", Customer.get(1).getName());
 		assertEquals("0987654321", Customer.get(1).getMobileNumber());
-		assertEquals("Driver Delivery", Customer.get(1).getCustomerType());
-		assertEquals(5, Customer.get(1).getLocationX());
-		assertEquals(5, Customer.get(1).getLocationY());
+		assertEquals("Drone Delivery", Customer.get(1).getCustomerType());
+		assertEquals(3, Customer.get(1).getLocationX());
+		assertEquals(4, Customer.get(1).getLocationY());
 	}
 	@Test	
 	public void ReadLogFile2() throws IOException, LogHandlerException, CustomerException{
@@ -55,8 +58,22 @@ public class LogHandlerCustomerTests {
 		System.out.println(Customer);
 		assertEquals("Oroku Saki", Customer.get(2).getName());
 		assertEquals("0111222333", Customer.get(2).getMobileNumber());
-		assertEquals("Driver Delivery", Customer.get(2).getCustomerType());
-		assertEquals(3, Customer.get(2).getLocationX());
-		assertEquals(4, Customer.get(2).getLocationY());
+		assertEquals("Pick Up", Customer.get(2).getCustomerType());
+		assertEquals(0, Customer.get(2).getLocationX());
+		assertEquals(0, Customer.get(2).getLocationY());
 	}
+	@Test	
+	public void ReadLine() throws PizzaException, IOException, LogHandlerException{
+		Customer cust;
+		try {
+			cust = LogHandler.createCustomer("19:00:00,19:20:00,Casey Jones,0123456789,DVC,5,5,PZV,2");
+			System.out.println(cust);
+			assertEquals("Driver Delivery", cust.getCustomerType());
+			assertEquals("Casey Jones", cust.getName());
+		} catch (CustomerException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

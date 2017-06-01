@@ -49,4 +49,13 @@ public class LogHandlerPizzaTests {
 		assertEquals(3, pizza.get(2).getQuantity());
 		assertEquals("Margherita", pizza.get(2).getPizzaType());
 	}
+	@Test	
+	public void ReadLine() throws PizzaException, IOException, LogHandlerException{
+		Pizza pizza;
+		pizza = LogHandler.createPizza("19:00:00,19:20:00,Casey Jones,0123456789,DVC,5,5,PZV,2");
+		System.out.println(pizza);
+		assertEquals(2, pizza.getQuantity());
+		assertEquals("Vegetarian", pizza.getPizzaType());
+	}
+	
 }
