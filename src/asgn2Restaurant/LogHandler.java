@@ -49,7 +49,6 @@ public class LogHandler {
 		ArrayList<Customer> cust = new ArrayList<Customer>();
 		try {
 			fstream = new FileInputStream(filename);
-				try{
 					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
 					String strLine;
 					while ((strLine = s.readLine()) != null)   {
@@ -65,16 +64,9 @@ public class LogHandler {
 						cust.add(CustomerFactory.getCustomer(custType, custName, custNum, custLocx, custLocy));
 					}
 					
-				}
-				catch (IOException e)
-				{
-					// TODO Auto-generated catch block
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		System.out.println(cust.iterator().toString());
 		return cust;
 	}		
@@ -100,18 +92,12 @@ public class LogHandler {
 				int QTY = Integer.parseInt(compArr[8]);
 				LocalTime orderTime = LocalTime.parse(compArr[0]);
 				LocalTime deliveryTime = LocalTime.parse(compArr[1]);
-				
-				//System.out.println(pizzaCode);
-				//System.out.println(QTY);
-				//System.out.println(orderTime);
-				
-				//String pizzaCode, int quantity, LocalTime orderTime, LocalTime deliveryTime
 				pizza.add(PizzaFactory.getPizza(pizzaCode, QTY, orderTime, deliveryTime));
+				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
    	    return pizza;
@@ -137,7 +123,6 @@ public class LogHandler {
 		String custName = compArr[2];
 		int custLocx = Integer.parseInt(compArr[5]);
 		int custLocy = Integer.parseInt(compArr[6]);
-
 		cust = CustomerFactory.getCustomer(custType, custName, custNum, custLocx, custLocy);
    	    return cust;
 	}
@@ -160,13 +145,6 @@ public class LogHandler {
 		int QTY = Integer.parseInt(compArr[8]);
 		LocalTime orderTime = LocalTime.parse(compArr[0]);
 		LocalTime deliveryTime = LocalTime.parse(compArr[1]);
-		
-		System.out.println(pizzaCode);
-		System.out.println(QTY);
-		System.out.println(orderTime);
-		System.out.println(deliveryTime);
-			
-			//String pizzaCode, int quantity, LocalTime orderTime, LocalTime deliveryTime
 		pizza = PizzaFactory.getPizza(pizzaCode, QTY, orderTime, deliveryTime);
    	    return pizza;	
 	}

@@ -78,6 +78,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	
 	String fileName = "";
 	int index = 0;
+	int fileIndexSize = 0;
 
 	
 	/**
@@ -241,8 +242,13 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			textCustomerDistance.setText("");
 		}
 		if (src==btnNext) {
-			index++;
-			updateText(index);
+				index++;
+				if (this.index == fileIndexSize)
+				{
+					index = 0;
+				}
+				System.out.println("index: " + index + "\n fileIndexSize: " + fileIndexSize);
+				updateText(index);
 		}
 		if (src==btnBack) {
 			if(index>0){
@@ -254,23 +260,26 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 
 	public void updateText(int index){
 		try {
-			ArrayList<Pizza> pizza;
+			ArrayList<Pizza> pizza = null;
 			pizza = LogHandler.populatePizzaDataset(fileName);
-			textPizzaType.setText(pizza.get(index).getPizzaType());
-			textPizzaQty.setText(String.valueOf(pizza.get(index).getQuantity()));
-			textPizzaPrice.setText(String.valueOf(pizza.get(index).getOrderPrice()));
-			textPizzaCost.setText(String.valueOf(pizza.get(index).getOrderCost()));
-			textPizzaProfit.setText(String.valueOf(pizza.get(index).getOrderProfit()));
+			fileIndexSize = pizza.size();
+			System.out.println("Uindex: " + index + "\n UfileIndexSize: " + fileIndexSize);
+				textPizzaType.setText(pizza.get(index).getPizzaType());
+				textPizzaQty.setText(String.valueOf(pizza.get(index).getQuantity()));
+				textPizzaPrice.setText(String.valueOf(pizza.get(index).getOrderPrice()));
+				textPizzaCost.setText(String.valueOf(pizza.get(index).getOrderCost()));
+				textPizzaProfit.setText(String.valueOf(pizza.get(index).getOrderProfit()));
 			
-			ArrayList<Customer> Customer;
+			ArrayList<Customer> Customer = null;
 			Customer = LogHandler.populateCustomerDataset(fileName);
-			textCustomerName.setText(Customer.get(index).getName());
-			textCustomerMobile.setText(Customer.get(index).getMobileNumber());
-			textCustomerType.setText(Customer.get(index).getCustomerType());
-			textCustomerX.setText(String.valueOf(Customer.get(index).getLocationX()));
-			textCustomerY.setText(String.valueOf(Customer.get(index).getLocationY()));
-			textCustomerDistance.setText(String.valueOf(Customer.get(index).getDeliveryDistance()));
-
+			fileIndexSize = Customer.size();
+				textCustomerName.setText(Customer.get(index).getName());
+				textCustomerMobile.setText(Customer.get(index).getMobileNumber());
+				textCustomerType.setText(Customer.get(index).getCustomerType());
+				textCustomerX.setText(String.valueOf(Customer.get(index).getLocationX()));
+				textCustomerY.setText(String.valueOf(Customer.get(index).getLocationY()));
+				textCustomerDistance.setText(String.valueOf(Customer.get(index).getDeliveryDistance()));
+			
 		} catch (PizzaException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
