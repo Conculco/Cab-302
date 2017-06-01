@@ -47,58 +47,22 @@ public class LogHandler {
 	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
 		FileInputStream fstream;
 		ArrayList<Customer> cust = new ArrayList<Customer>();
-		String name = "";
-		String num = "";
-		String slocx = "";
-		int locx = 0;
-		String slocy = "";
-		int locy = 0;
-		String type = "";
 		try {
 			fstream = new FileInputStream(filename);
 				try{
 					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
 					String strLine;
 					while ((strLine = s.readLine()) != null)   {
-						//System.out.println(strLine);
-						Pattern findName = Pattern.compile("([A-Z])\\w+ ([A-Z])*'?\\w+");
-						Matcher matchName = findName.matcher(strLine);
-						while(matchName.find())
-						{
-							name = matchName.group();
-							//System.out.println(matchName.group());
-						}
-						Pattern findNum = Pattern.compile("([0-9]){10}");
-						Matcher matchNum = findNum.matcher(strLine);
-						while(matchNum.find())
-						{
-							//System.out.println(matchNum.group());
-							num = matchNum.group();
-						}
-						Pattern findLocX = Pattern.compile(",-*[0-9],");
-						Matcher matchLocX = findLocX.matcher(strLine);
-						while(matchLocX.find())
-						{
-							//System.out.println(matchLocX.group());
-							slocx = matchLocX.group().replace(",", "");
-							locx = Integer.parseInt(slocx);
-						}
-						Pattern findLocY = Pattern.compile(",[0-9],P");
-						Matcher matchLocY = findLocY.matcher(strLine);
-						while(matchLocY.find())
-						{
-							//System.out.println(matchLocY.group());
-							slocy = matchLocY.group().replace(",", "").replace("P", "");
-							locy = Integer.parseInt(slocy);
-						}
-						Pattern findType = Pattern.compile("PUC|DNC|DVC");
-						Matcher matchType = findType.matcher(strLine);
-						while(matchType.find())
-						{
-							//System.out.println(matchType.group());
-							type = matchType.group();
-						}
-						cust.add(CustomerFactory.getCustomer(type, name, num, locx, locy));
+						String thisLine = strLine;
+						String[] compArr = thisLine.split(COMMA);
+							
+						//Load Elements of array into correct format for getCustomer()
+						String custType = compArr[4];
+						String custNum = compArr[3];
+						String custName = compArr[2];
+						int custLocx = Integer.parseInt(compArr[5]);
+						int custLocy = Integer.parseInt(compArr[6]);
+						cust.add(CustomerFactory.getCustomer(custType, custName, custNum, custLocx, custLocy));
 					}
 					
 				}
