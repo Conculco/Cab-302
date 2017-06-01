@@ -1,8 +1,15 @@
 package asgn2Restaurant;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import asgn2Customers.Customer;
+import asgn2Exceptions.CustomerException;
+import asgn2Exceptions.LogHandlerException;
+import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
 
 /**
@@ -19,9 +26,11 @@ import asgn2Pizzas.Pizza;
  */
 public class PizzaRestaurant {
 
-	private ArrayList<Customer> customers;
-	private ArrayList<Pizza> pizzas;
-
+	private ArrayList<Customer> customersArray;
+	private Customer customer;
+	private ArrayList<Pizza> pizzasArray;
+	private Pizza pizza;
+	private final static String COMMA = ",";
 	
 	/**
 	 * Creates an instance of the PizzaRestaurant and sets the customers and pizzas fields to
@@ -52,8 +61,37 @@ public class PizzaRestaurant {
      *
 	 */
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
-		customers = LogHandler.populateCustomerDataset(filename);
-		pizzas = LogHandler.populatePizzaDataset(filename);
+		customersArray = LogHandler.populateCustomerDataset(filename);
+		pizzasArray = LogHandler.populatePizzaDataset(filename);
+		FileInputStream fstreamCust = null;
+		FileInputStream fstreamPizza = null;
+		@SuppressWarnings("resource")
+		
+		BufferedReader brCust = new BufferedReader(new InputStreamReader(fstreamCust));
+		BufferedReader brPizza = new BufferedReader(new InputStreamReader(fstreamPizza));
+		String strCustLine;
+		String strPizzaLine;
+		try {
+			strCustLine = brCust.readLine();
+			strPizzaLine = brPizza.readLine();
+			String thisCustLine = strCustLine;
+			String thisPizzaLine = strPizzaLine;
+			String[] compArr = thisCustLine.split(COMMA);
+			String[] compArrPizza = thisPizzaLine.split(COMMA);
+			String lineCompare = customersArray.get(0).getName();
+			String lineCompare2 = compArr[2];
+			String lineCompare3 = pizzasArray.get(0).getPizzaType();
+			String lineCompare4 = compArrPizza[8];
+			if(lineCompare.equals(lineCompare2) && lineCompare3.equals(lineCompare4)) {
+				return true;
+			} 
+			else {
+				return false;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**
@@ -63,7 +101,7 @@ public class PizzaRestaurant {
 	 * @throws CustomerException if index is invalid.
 	 */
 	public Customer getCustomerByIndex(int index) throws CustomerException{
-		// TO DO
+		return customersArray.get(index);
 	}
 	
 	/**
@@ -73,7 +111,7 @@ public class PizzaRestaurant {
 	 * @throws PizzaException if index is invalid.
 	 */	
 	public Pizza getPizzaByIndex(int index) throws PizzaException{
-		// TO DO
+		return pizzasArray.get(index);
 	}
 	
 	/**
@@ -83,7 +121,7 @@ public class PizzaRestaurant {
 	 * @return the number of objects contained in the pizzas field.
 	 */
 	public int getNumPizzaOrders(){
-		// TO DO
+		return customersArray.size();
 	}
 
 	/**
@@ -93,7 +131,7 @@ public class PizzaRestaurant {
 	 * @return the number of objects contained in the customers field.
 	 */
 	public int getNumCustomerOrders(){
-		// TO DO
+		return pizzasArray.size();
 	}
 
 			
@@ -104,7 +142,13 @@ public class PizzaRestaurant {
 	 * @return the total delivery distance for all Customers objects in the customers field.
 	 */
 	public double getTotalDeliveryDistance(){
-		// TO DO
+		int deliveryDistanceTotal = 0;
+		while (customersArray.iterator().hasNext())
+		{
+			deliveryDistanceTotal += customersArray.iterator().next().getDeliveryDistance();
+		}
+		System.out.println(deliveryDistanceTotal);
+		return deliveryDistanceTotal;
 	}
 
 	/**
@@ -113,7 +157,12 @@ public class PizzaRestaurant {
 	 * @return the total profit for all of the Pizza objects in the pizzas field.
 	 */	
 	public double getTotalProfit(){
-		// TO DO
+		int totalProfit = 0;
+		while (pizzasArray.iterator().hasNext())
+		{
+			totalProfit += pizzasArray.iterator().next().getOrderProfit();
+		}
+		return totalProfit;
 	}
 	
 	/**
