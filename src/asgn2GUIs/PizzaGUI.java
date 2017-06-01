@@ -184,7 +184,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		
 		this.getContentPane().add(pnlDisplay,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlBtn,BorderLayout.SOUTH);
-
+	    
 	    repaint(); 
 	    this.setVisible(true);
 	}
@@ -227,10 +227,19 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 
 	    //Add Buttons to GUI
 	    addToPanel(pnlBtn, btnLoad,constraints,0,0,2,1); 
-	    addToPanel(pnlBtn, btnUnload,constraints,3,0,2,1); 
+	    addToPanel(pnlBtn, btnUnload,constraints,9,2,2,1); 
 	    addToPanel(pnlBtn, btnBack,constraints,0,2,2,1); 
 	    addToPanel(pnlBtn, btnNext,constraints,3,2,2,1);
-	    addToPanel(pnlBtn, btnDaily,constraints,6,2,2,1); 
+	    addToPanel(pnlBtn, btnDaily,constraints,6,2,2,1);
+	    
+	    //Button Gray Out
+	    btnUnload.setEnabled(false);
+	    btnBack.setEnabled(false); 
+	    btnNext.setEnabled(false); 
+	    btnDaily.setEnabled(false); 
+	    
+	    
+	    
 	}
 	
 	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
@@ -256,6 +265,12 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			    File selectedFile = fileChooser.getSelectedFile();
 			    fileName = selectedFile.toString();
 			    updateText(index);
+			    
+			    //Button Gray Out
+			    btnUnload.setEnabled(true);
+			    btnNext.setEnabled(true); 
+			    btnDaily.setEnabled(true); 
+			    
 			}  
 		}
 		if (src==btnUnload) {
@@ -272,21 +287,33 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			textCustomerX.setText("");
 			textCustomerY.setText("");
 			textCustomerDistance.setText("");
+			textDailyPizzaQty.setText("");
+			textDailyPizzaPrice.setText("");
+			textDailyPizzaCost.setText("");
+			textDailyPizzaProfit.setText("");
+			textDailyDistance.setText("");
+			
+		    btnUnload.setEnabled(false);
+		    btnBack.setEnabled(false); 
+		    btnNext.setEnabled(false); 
+		    btnDaily.setEnabled(false); 
 		}
 		if (src==btnNext) {
-				index++;
-				if (this.index == fileIndexSize)
-				{
-					index = 0;
-				}
-				System.out.println("index: " + index + "\n fileIndexSize: " + fileIndexSize);
-				updateText(index);
+			btnBack.setEnabled(true);
+			index++;
+			if (index == fileIndexSize-1){
+				btnNext.setEnabled(false);
+			}
+			System.out.println("index: " + index + "\n fileIndexSize: " + fileIndexSize);
+			updateText(index);
 		}
 		if (src==btnBack) {
-			if(index>0){
-				index--;
-				updateText(index);
+			btnNext.setEnabled(true);
+			index--;
+			if(index == 0){
+				btnBack.setEnabled(false);
 			}
+			updateText(index);
 		}
 		if (src==btnDaily) {
 			ArrayList<Pizza> pizza = null;
@@ -325,8 +352,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-
 		}
 	}
 
