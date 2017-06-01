@@ -39,21 +39,18 @@ public abstract class Customer {
 		this.locationY = locationY;
 		if (name.length() >= 1) {
 			this.name = name;
-		}
-		else {
+		} else {
 			throw new CustomerException("Name entered is invalid");
 		}
 		String regex = "[0-9]+";
 		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10 && mobileNumber.matches(regex)) {
 			this.mobileNumber = mobileNumber;
-		}
-		else {
+		} else {
 			throw new CustomerException("The phone number entered is invalid");
 		}
 		if (type.equals(new String ("Pick Up")) || type.equals(new String ("Driver Delivery")) || type.equals(new String ("Drone Delivery"))) {
 			this.type = type;
-		}
-		else {
+		} else {
 			throw new CustomerException("The type entered is invalid");	
 		}
 	}

@@ -39,17 +39,13 @@ public class PickUpCustomer extends Customer {
 	public PickUpCustomer(String name, String mobileNumber, int locationX,  int locationY) throws CustomerException {
 		super(name, mobileNumber, locationX, locationY, "Pick Up");
 		this.name = name;
-		if (name.length() <= 0)
-		{
+		if (name.length() <= 0) {
 			throw new CustomerException("Name entered is invalid");
 		}
 		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10)
-		{
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10) {
 			this.mobileNumber = mobileNumber;
-		}
-		else
-		{
+		} else {
 			throw new CustomerException("The phone number entered is invalid");
 		}
 		this.locationX = locationX;

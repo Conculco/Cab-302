@@ -46,14 +46,12 @@ public class DroneDeliveryCustomer extends Customer {
 		this.mobileNumber = mobileNumber;
 		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10){
 			this.mobileNumber = mobileNumber;
-		}
-		else {
+		} else {
 			throw new CustomerException("The phone number entered is invalid");
 		}
 		if(locationX > 10 || locationX < - 10 || locationY > 10 || locationY < - 10 || getDeliveryDistance() == 0) {
 			throw new CustomerException("Delivery Distance is too much");
-		}
-		else {
+		} else {
 			this.locationX = locationX;
 			this.locationY = locationY;
 		}

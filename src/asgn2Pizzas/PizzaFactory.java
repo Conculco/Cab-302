@@ -31,16 +31,13 @@ public class PizzaFactory {
 		if (pizzaCode.equals(new String ("PZM"))) {
 			MeatLoversPizza meat = new MeatLoversPizza(quantity, orderTime, deliveryTime);
 			return meat;
-		}
-		else if  (pizzaCode.equals(new String ("PZV"))) {
+		} else if  (pizzaCode.equals(new String ("PZV"))) {
 			VegetarianPizza vege = new VegetarianPizza(quantity, orderTime, deliveryTime);
 			return vege;
-		}
-		else if (pizzaCode.equals(new String ("PZL"))) {
+		} else if (pizzaCode.equals(new String ("PZL"))) {
 			MargheritaPizza marg = new MargheritaPizza(quantity, orderTime, deliveryTime);
 			return marg;
-		}
-		else {
+		} else {
 			new PizzaException("Invalid Pizza Code Given");
 		}
 		return gPizza;

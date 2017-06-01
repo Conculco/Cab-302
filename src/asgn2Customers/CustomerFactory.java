@@ -32,16 +32,13 @@ public class CustomerFactory {
 			if (customerCode.equals(new String ("PUC"))) {
 				PickUpCustomer puc = new PickUpCustomer(name, mobileNumber, locationX, locationY);
 				return puc;
-			}
-			else if  (customerCode.equals(new String ("DVC"))) {
+			} else if  (customerCode.equals(new String ("DVC"))) {
 				DriverDeliveryCustomer dvc = new DriverDeliveryCustomer(name, mobileNumber, locationX, locationY);
 				return dvc;
-			}
-			else if (customerCode.equals(new String ("DNC"))) {
+			} else if (customerCode.equals(new String ("DNC"))) {
 				DroneDeliveryCustomer dnc = new DroneDeliveryCustomer(name, mobileNumber, locationX, locationY);
 				return dnc;
-			}
-			else {
+			} else {
 				new CustomerException("Invalid Customer Code Given");
 			}
 			return gCust;

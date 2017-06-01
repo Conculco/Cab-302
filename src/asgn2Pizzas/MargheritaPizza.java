@@ -41,17 +41,14 @@ public class MargheritaPizza extends Pizza {
 		super(quantity, orderTime, deliveryTime, "Margherita", 8.00);
 		if(quantity < 1) {
 			throw new PizzaException("Order contains less than one pizza");
-		}
-		else if(quantity > 10) {
+		} else if(quantity > 10) {
 			throw new PizzaException("Order contains more than 10 pizzas");
-		}
-		else {
+		} else {
 			this.quantity = quantity;
 		}
 		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(23, 00))) {
 			throw new PizzaException("Kitchen is closed, new orders cannot be taken");
-		}
-		else {
+		} else {
 			this.orderTime = orderTime;
 		}
 	}

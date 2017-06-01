@@ -43,29 +43,23 @@ public abstract class Pizza  {
 	public Pizza(int quantity, LocalTime orderTime, LocalTime deliveryTime, String type, double price) throws PizzaException{
 		if(quantity < 1) {
 			throw new PizzaException("Order contains less than one pizza");
-		} 
-		else if(quantity > 10) {
+		} else if(quantity > 10) {
 			throw new PizzaException("Order contains more than 10 pizzas");
-		} 
-		else {
+		} else {
 			this.quantity = quantity;
 		} 
 		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(22, 59))) {
 			throw new PizzaException("Kitchen is closed, new orders cannot be taken");
-		} 
-		else if(deliveryTime.getHour() - orderTime.getHour() >= 1 || deliveryTime.getHour() - orderTime.getHour() == 1 && deliveryTime.getMinute() - orderTime.getMinute() >= 1) {
+		} else if(deliveryTime.getHour() - orderTime.getHour() >= 1 || deliveryTime.getHour() - orderTime.getHour() == 1 && deliveryTime.getMinute() - orderTime.getMinute() >= 1) {
 			throw new PizzaException("Pizza is old, needs to be thrown");
-		}
-		else {
+		} else {
 			this.orderTime = orderTime;
 		} if(type.equals(new String("Margherita")) || type.equals(new String("Vegetarian")) || type.equals(new String("Meat Lovers"))) {
 			this.type = type;
-		} 
-		else {
+		} else {
 			throw new PizzaException("Pizza Type Doesn't exist (Pineapple belongs on pizzas though)");
 		}
 		this.price = price;
-		
 	}
 
 	/**
@@ -81,14 +75,10 @@ public abstract class Pizza  {
 			System.out.println(s);
 			pizzaCost = PizzaTopping.BACON.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
-		}
-		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza")))
-		{
+		} else if(s.equals(new String("asgn2Pizzas.VegetarianPizza"))) {
 			pizzaCost = PizzaTopping.EGGPLANT.getCost() + PizzaTopping.MUSHROOM.getCost() + PizzaTopping.CAPSICUM.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
-		}
-		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza")))
-		{
+		} else if(s.equals(new String("asgn2Pizzas.MargheritaPizza"))) {
 			pizzaCost = PizzaTopping.CHEESE.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
 		}
@@ -112,11 +102,9 @@ public abstract class Pizza  {
 		String s = getClass().getName();
 		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza"))) {
 			return price = 12;
-		}
-		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza"))) {
+		} else if(s.equals(new String("asgn2Pizzas.VegetarianPizza"))) {
 			return price = 10;
-		}
-		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza"))) {
+		} else if(s.equals(new String("asgn2Pizzas.MargheritaPizza"))) {
 			return price = 8;
 		}
 		return price;

@@ -38,29 +38,26 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
-		FileInputStream fstream;
 		ArrayList<Customer> cust = new ArrayList<Customer>();
+		String thisLine = null;
 		try {
-			fstream = new FileInputStream(filename);
-					@SuppressWarnings("resource")
-					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
-					String strLine;
-					while ((strLine = s.readLine()) != null)   {
-						String thisLine = strLine;
-						String[] compArr = thisLine.split(COMMA);
-							
-						//Load Elements of array into correct format for getCustomer()
-						String custType = compArr[4];
-						String custNum = compArr[3];
-						String custName = compArr[2];
-						int custLocx = Integer.parseInt(compArr[5]);
-						int custLocy = Integer.parseInt(compArr[6]);
-						cust.add(CustomerFactory.getCustomer(custType, custName, custNum, custLocx, custLocy));
-					}
-				} catch (IOException e) {
+			@SuppressWarnings("resource")
+			//Read file and split into array split by commas
+			BufferedReader br = new BufferedReader(new FileReader(filename));
+			while ((thisLine = br.readLine()) != null) {
+				String[] arrayUnsorted = thisLine.split(COMMA);
+
+				//Sorting the elements of the 'arrayUnsorted' into useful variables
+				String custType = arrayUnsorted[4];
+				String custNum = arrayUnsorted[3];
+				String custName = arrayUnsorted[2];
+				int custLocx = Integer.parseInt(arrayUnsorted[5]);
+				int custLocy = Integer.parseInt(arrayUnsorted[6]);
+				cust.add(CustomerFactory.getCustomer(custType, custName, custNum, custLocx, custLocy));
+			}
+		} catch (IOException e) {
 					e.printStackTrace();
-				}
-		System.out.println(cust.iterator().toString());
+		}
 		return cust;		
 }
 
@@ -77,17 +74,18 @@ public class LogHandler {
 		String thisLine = null;
 		try {
 			@SuppressWarnings("resource")
+			//Read File and Split into array split by commas
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			while ((thisLine = br.readLine()) != null) {
-				String[] compArr = thisLine.split(COMMA);
-				String pizzaCode = compArr[7];
-				int QTY = Integer.parseInt(compArr[8]);
-				LocalTime orderTime = LocalTime.parse(compArr[0]);
-				LocalTime deliveryTime = LocalTime.parse(compArr[1]);
+				String[] arrayUnsorted = thisLine.split(COMMA);
+				
+				//Sorting the elements of the 'arrayUnsorted' into useful variables
+				String pizzaCode = arrayUnsorted[7];
+				int QTY = Integer.parseInt(arrayUnsorted[8]);
+				LocalTime orderTime = LocalTime.parse(arrayUnsorted[0]);
+				LocalTime deliveryTime = LocalTime.parse(arrayUnsorted[1]);
 				pizza.add(PizzaFactory.getPizza(pizzaCode, QTY, orderTime, deliveryTime));
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -143,8 +143,7 @@ public class PizzaRestaurant {
 	 */
 	public double getTotalDeliveryDistance(){
 		int deliveryDistanceTotal = 0;
-		while (customersArray.iterator().hasNext())
-		{
+		while (customersArray.iterator().hasNext()) {
 			deliveryDistanceTotal += customersArray.iterator().next().getDeliveryDistance();
 		}
 		System.out.println(deliveryDistanceTotal);
@@ -158,8 +157,7 @@ public class PizzaRestaurant {
 	 */	
 	public double getTotalProfit(){
 		int totalProfit = 0;
-		while (pizzasArray.iterator().hasNext())
-		{
+		while (pizzasArray.iterator().hasNext()) {
 			totalProfit += pizzasArray.iterator().next().getOrderProfit();
 		}
 		return totalProfit;
