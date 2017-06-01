@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 import asgn2Customers.Customer;
 import asgn2Customers.CustomerFactory;
 import asgn2Exceptions.CustomerException;
@@ -19,8 +16,6 @@ import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
 import asgn2Pizzas.PizzaFactory;
-
-import java.util.regex.*;
 
 /**
  *
@@ -49,6 +44,7 @@ public class LogHandler {
 		ArrayList<Customer> cust = new ArrayList<Customer>();
 		try {
 			fstream = new FileInputStream(filename);
+					@SuppressWarnings("resource")
 					BufferedReader s = new BufferedReader(new InputStreamReader(fstream));
 					String strLine;
 					while ((strLine = s.readLine()) != null)   {
@@ -63,13 +59,12 @@ public class LogHandler {
 						int custLocy = Integer.parseInt(compArr[6]);
 						cust.add(CustomerFactory.getCustomer(custType, custName, custNum, custLocx, custLocy));
 					}
-					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 		System.out.println(cust.iterator().toString());
-		return cust;
-	}		
+		return cust;		
+}
 
 	/**
 	 * Returns an ArrayList of Pizza objects from the information contained in the log file ordered as they appear in the log file. .
@@ -83,17 +78,15 @@ public class LogHandler {
 		ArrayList<Pizza> pizza = new ArrayList<Pizza>();
 		String thisLine = null;
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			while ((thisLine = br.readLine()) != null) {
 				String[] compArr = thisLine.split(COMMA);
-				
-				//Load Elements of array into correct format for getPizza()
 				String pizzaCode = compArr[7];
 				int QTY = Integer.parseInt(compArr[8]);
 				LocalTime orderTime = LocalTime.parse(compArr[0]);
 				LocalTime deliveryTime = LocalTime.parse(compArr[1]);
 				pizza.add(PizzaFactory.getPizza(pizzaCode, QTY, orderTime, deliveryTime));
-				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

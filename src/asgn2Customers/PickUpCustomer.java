@@ -11,10 +11,15 @@ import asgn2Exceptions.CustomerException;
  *
  */
 public class PickUpCustomer extends Customer {
+	@SuppressWarnings("unused")
 	private String name;
+	@SuppressWarnings("unused")
 	private String mobileNumber;
+	@SuppressWarnings("unused")
 	private int locationX;
+	@SuppressWarnings("unused")
 	private int locationY;
+	@SuppressWarnings("unused")
 	private String type;
 	
 	/**

@@ -17,12 +17,11 @@ import asgn2Exceptions.PizzaException;
 public abstract class Pizza  {
 	
 	private int quantity;
-	private LocalTime orderTime;
-	private LocalTime deliveryTime;
 	private String type;
 	private double cost;
 	private double price;
-	private PizzaTopping[] toppingArray = new PizzaTopping[8];
+	@SuppressWarnings("unused")
+	private LocalTime orderTime;
 	
 	/**
 	 *  This class represents a pizza produced at the Pizza Palace restaurant.  A detailed description of the class's fields
@@ -42,32 +41,24 @@ public abstract class Pizza  {
 	 * 
 	 */
 	public Pizza(int quantity, LocalTime orderTime, LocalTime deliveryTime, String type, double price) throws PizzaException{
-		if(quantity < 1)
-		{
+		if(quantity < 1) {
 			throw new PizzaException("Order contains less than one pizza");
-		}
-		else if(quantity > 10)
-		{
+		} 
+		else if(quantity > 10) {
 			throw new PizzaException("Order contains more than 10 pizzas bruh, chill fam");
-		}
-		else
-		{
+		} 
+		else {
 			this.quantity = quantity;
-		}
-		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(23, 00)))
-		{
+		} 
+		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(23, 00))) {
 			throw new PizzaException("Kitchen is closed, new orders cannot be taken");
-		}
-		else
-		{
+		} 
+		else {
 			this.orderTime = orderTime;
-		}
-		if(type.equals(new String("Margherita")) || type.equals(new String("Vegetarian")) || type.equals(new String("Meat Lovers")))
-		{
+		} if(type.equals(new String("Margherita")) || type.equals(new String("Vegetarian")) || type.equals(new String("Meat Lovers"))) {
 			this.type = type;
-		}
-		else
-		{
+		} 
+		else {
 			throw new PizzaException("Pizza be whack yo, ain't got dis flava homie");
 		}
 		this.price = price;
@@ -83,8 +74,7 @@ public abstract class Pizza  {
 	public final void calculateCostPerPizza(){
 		double pizzaCost = 0;
 		String s = getClass().getName();
-		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza")))
-		{
+		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza"))) {
 			System.out.println(s);
 			pizzaCost = PizzaTopping.BACON.getCost() + PizzaTopping.CHEESE.getCost() + PizzaTopping.PEPPERONI.getCost() + PizzaTopping.SALAMI.getCost() + PizzaTopping.TOMATO.getCost();
 			this.cost = pizzaCost;
@@ -116,18 +106,14 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza is sold to the customer.
 	 */
 	public final double getPricePerPizza(){
-		double pizzaCost = 0;
 		String s = getClass().getName();
-		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza")))
-		{
+		if(s.equals(new String("asgn2Pizzas.MeatLoversPizza"))) {
 			return price = 12;
 		}
-		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza")))
-		{
+		else if(s.equals(new String("asgn2Pizzas.VegetarianPizza"))) {
 			return price = 10;
 		}
-		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza")))
-		{
+		else if(s.equals(new String("asgn2Pizzas.MargheritaPizza"))) {
 			return price = 8;
 		}
 		return price;

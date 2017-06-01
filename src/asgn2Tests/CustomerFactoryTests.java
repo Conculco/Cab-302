@@ -16,6 +16,7 @@ public class CustomerFactoryTests {
 	private String mobileNumber = "0425080171";
 	private int positionX = 3;
 	private int positionY = 2;
+	@SuppressWarnings("unused")
 	private Customer test;
 	private String code = "PUC";
 	

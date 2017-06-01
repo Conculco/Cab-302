@@ -11,7 +11,6 @@ import asgn2Exceptions.CustomerException;
  * @author Person B
 */
 public abstract class Customer {
-
 	private String name;
 	private String mobileNumber;
 	private int locationX;
@@ -38,27 +37,21 @@ public abstract class Customer {
 		this.name = name; 
 		this.locationX = locationX;
 		this.locationY = locationY;
-		if (name.length() <= 0)
-		{
+		if (name.length() <= 0) {
 			throw new CustomerException("Name entered is invalid");
 		}
 		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10)
-		{
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10) {
 			this.mobileNumber = mobileNumber;
 		}
-		else
-		{
+		else {
 			throw new CustomerException("The phone number entered is invalid");
 		}
-		if (type.equals(new String ("Pick Up")) || type.equals(new String ("Driver Delivery")) || type.equals(new String ("Drone Delivery")))
-		{
+		if (type.equals(new String ("Pick Up")) || type.equals(new String ("Driver Delivery")) || type.equals(new String ("Drone Delivery"))) {
 			this.type = type;
 		}
-		else 
-		{
-			throw new CustomerException("The type entered is invalid");
-			
+		else {
+			throw new CustomerException("The type entered is invalid");	
 		}
 	}
 	

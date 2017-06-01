@@ -6,13 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Test;
-
 import asgn2Customers.Customer;
-import asgn2Customers.CustomerFactory;
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
-import asgn2Pizzas.Pizza;
 import asgn2Restaurant.LogHandler;
 
 /**

@@ -1,9 +1,6 @@
 package asgn2Pizzas;
 
 import java.time.LocalTime;
-
-import asgn2Customers.Customer;
-import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.PizzaException;
 
 /**
@@ -31,26 +28,21 @@ public class PizzaFactory {
 	 * @return A valid Pizza object using the specified parameters 
 	 * */
 	public static Pizza getPizza(String pizzaCode, int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException{
-		if (pizzaCode.equals(new String ("PZM")))
-		{
+		if (pizzaCode.equals(new String ("PZM"))) {
 			MeatLoversPizza meat = new MeatLoversPizza(quantity, orderTime, deliveryTime);
 			return meat;
 		}
-		else if  (pizzaCode.equals(new String ("PZV")))
-		{
+		else if  (pizzaCode.equals(new String ("PZV"))) {
 			VegetarianPizza vege = new VegetarianPizza(quantity, orderTime, deliveryTime);
 			return vege;
 		}
-		else if (pizzaCode.equals(new String ("PZL")))
-		{
+		else if (pizzaCode.equals(new String ("PZL"))) {
 			MargheritaPizza marg = new MargheritaPizza(quantity, orderTime, deliveryTime);
 			return marg;
 		}
-		else 
-		{
-			new PizzaException("Invalid Pizza Code Given, the factory tint setting is always too high!");
+		else {
+			new PizzaException("Invalid Pizza Code Given");
 		}
 		return gPizza;
 	}
-
 }

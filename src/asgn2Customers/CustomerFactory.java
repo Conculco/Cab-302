@@ -2,10 +2,6 @@ package asgn2Customers;
 
 
 import asgn2Exceptions.CustomerException;
-import asgn2Exceptions.PizzaException;
-import asgn2Pizzas.MargheritaPizza;
-import asgn2Pizzas.MeatLoversPizza;
-import asgn2Pizzas.VegetarianPizza;
 import asgn2Customers.Customer;
 /**
  * A class that instantiates the subclasses of asgn2Customers.Customer using the Factory Method pattern. 
@@ -33,26 +29,22 @@ public class CustomerFactory {
 	 * @throws CustomerException if the customerCode is not one of the three valid codes listed in Section 5.3 of the Assignment Specification. 
 	 */
 	public static Customer getCustomer(String customerCode, String name, String mobileNumber, int locationX,  int locationY) throws CustomerException{
-		if (customerCode.equals(new String ("PUC")) || customerCode.equals(new String ("DVC")) || customerCode.equals(new String ("DNC")))
-			if (customerCode.equals(new String ("PUC")))
-			{
+			if (customerCode.equals(new String ("PUC"))) {
 				PickUpCustomer puc = new PickUpCustomer(name, mobileNumber, locationX, locationY);
 				return puc;
 			}
-			else if  (customerCode.equals(new String ("DVC")))
-			{
+			else if  (customerCode.equals(new String ("DVC"))) {
 				DriverDeliveryCustomer dvc = new DriverDeliveryCustomer(name, mobileNumber, locationX, locationY);
 				return dvc;
 			}
-			else if (customerCode.equals(new String ("DNC")))
-			{
+			else if (customerCode.equals(new String ("DNC"))) {
 				DroneDeliveryCustomer dnc = new DroneDeliveryCustomer(name, mobileNumber, locationX, locationY);
 				return dnc;
 			}
-			else 
-			{
-				new CustomerException("Invalid Customer Code Given, the factory tint setting is always too high!");
+			else {
+				new CustomerException("Invalid Customer Code Given");
 			}
 			return gCust;
 	}
 }
+

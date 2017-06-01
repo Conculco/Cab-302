@@ -11,10 +11,15 @@ import asgn2Exceptions.CustomerException;
  *
  */
 public class DroneDeliveryCustomer extends Customer {
+	@SuppressWarnings("unused")
 	private String name;
+	@SuppressWarnings("unused")
 	private String mobileNumber;
+	@SuppressWarnings("unused")
 	private int locationX;
+	@SuppressWarnings("unused")
 	private int locationY;
+	@SuppressWarnings("unused")
 	private String type;
 
 	/**
@@ -35,17 +40,14 @@ public class DroneDeliveryCustomer extends Customer {
 	public DroneDeliveryCustomer(String name, String mobileNumber, int locationX, int locationY) throws CustomerException {
 		super(name, mobileNumber, locationX, locationY, "Drone Delivery");
 		this.name = name;
-		if (name.length() <= 0)
-		{
+		if (name.length() <= 0) {
 			throw new CustomerException("Name entered is invalid");
 		}
 		this.mobileNumber = mobileNumber;
-		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10)
-		{
+		if (mobileNumber.startsWith("0") && mobileNumber.length() == 10){
 			this.mobileNumber = mobileNumber;
 		}
-		else
-		{
+		else {
 			throw new CustomerException("The phone number entered is invalid");
 		}
 		this.locationX = locationX;
@@ -64,6 +66,4 @@ public class DroneDeliveryCustomer extends Customer {
 		double y1 = getLocationY();
 		return Math.sqrt((x1*x1) + (y1*y1));
 	}
-	
-
 }

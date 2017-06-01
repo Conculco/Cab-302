@@ -58,10 +58,12 @@ public class PizzaTests {
 	}
 	@Test(expected=PizzaException.class)	
 	public void pizzaQuantity_Negative() throws PizzaException{
+		@SuppressWarnings("unused")
 		MeatLoversPizza aPizza = new MeatLoversPizza(-1, LocalTime.of(19, 00), LocalTime.of(19, 00));
 	}
 	@Test(expected=PizzaException.class)	
 	public void pizzaQuantity_OverOrder() throws PizzaException{
+		@SuppressWarnings("unused")
 		MeatLoversPizza aPizza = new MeatLoversPizza(11, LocalTime.of(19, 00), LocalTime.of(19, 00));
 	}
 	@Test	
