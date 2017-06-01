@@ -45,21 +45,24 @@ public abstract class Pizza  {
 			throw new PizzaException("Order contains less than one pizza");
 		} 
 		else if(quantity > 10) {
-			throw new PizzaException("Order contains more than 10 pizzas bruh, chill fam");
+			throw new PizzaException("Order contains more than 10 pizzas");
 		} 
 		else {
 			this.quantity = quantity;
 		} 
-		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(23, 00))) {
+		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(22, 59))) {
 			throw new PizzaException("Kitchen is closed, new orders cannot be taken");
 		} 
+		else if(deliveryTime.getHour() - orderTime.getHour() >= 1 || deliveryTime.getHour() - orderTime.getHour() == 1 && deliveryTime.getMinute() - orderTime.getMinute() >= 1) {
+			throw new PizzaException("Pizza is old, needs to be thrown");
+		}
 		else {
 			this.orderTime = orderTime;
 		} if(type.equals(new String("Margherita")) || type.equals(new String("Vegetarian")) || type.equals(new String("Meat Lovers"))) {
 			this.type = type;
 		} 
 		else {
-			throw new PizzaException("Pizza be whack yo, ain't got dis flava homie");
+			throw new PizzaException("Pizza Type Doesn't exist (Pineapple belongs on pizzas though)");
 		}
 		this.price = price;
 		

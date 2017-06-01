@@ -66,6 +66,31 @@ public class PizzaTests {
 		@SuppressWarnings("unused")
 		MeatLoversPizza aPizza = new MeatLoversPizza(11, LocalTime.of(19, 00), LocalTime.of(19, 00));
 	}
+	@Test(expected=PizzaException.class)	
+	public void pizzaQuantity_PizzaThrown() throws PizzaException{
+		@SuppressWarnings("unused")
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(21, 00));
+	}
+	@Test(expected=PizzaException.class)	
+	public void pizzaQuantity_PizzaThrown2() throws PizzaException{
+		@SuppressWarnings("unused")
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(20, 01));
+	}
+	@Test	
+	public void pizzaQuantity_PizzaThrown3() throws PizzaException{
+		@SuppressWarnings("unused")
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 59));
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaQuantity_PizzaThrown4() throws PizzaException{
+		@SuppressWarnings("unused")
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(22, 59), LocalTime.of(23, 59));
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaQuantity_PizzaOverTime() throws PizzaException{
+		@SuppressWarnings("unused")
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(23, 00), LocalTime.of(23, 59));
+	}
 	@Test	
 	public void pizzaCostPerPizza() throws PizzaException{
 		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(19, 00));
