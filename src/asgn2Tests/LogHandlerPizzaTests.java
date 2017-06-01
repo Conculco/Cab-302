@@ -1,11 +1,8 @@
 package asgn2Tests;
 import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.junit.Test;
-
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
@@ -57,5 +54,4 @@ public class LogHandlerPizzaTests {
 		assertEquals(2, pizza.getQuantity());
 		assertEquals("Vegetarian", pizza.getPizzaType());
 	}
-	
 }

@@ -28,8 +28,6 @@ import asgn2Pizzas.PizzaFactory;
  */
 public class LogHandler {
 	private final static String COMMA = ",";
-
-
 	/**
 	 * Returns an ArrayList of Customer objects from the information contained in the log file ordered as they appear in the log file.
 	 * @param filename The file name of the log file
