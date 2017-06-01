@@ -49,7 +49,7 @@ import javax.swing.*;
 public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionListener {
 	private static final long serialVersionUID = -7031008862559936404L;
 	public static final int WIDTH = 400;
-	public static final int HEIGHT = 400;
+	public static final int HEIGHT = 500;
 	
 	//Panel
 	private JPanel pnlDisplay;
@@ -60,6 +60,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private JButton btnUnload;
 	private JButton btnBack;
 	private JButton btnNext;
+	private JButton btnDaily;
 	
 	//TextFields Customers
 	private JTextField textCustomerName;
@@ -75,6 +76,13 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private JTextField textPizzaPrice;
 	private JTextField textPizzaCost;
 	private JTextField textPizzaProfit;
+	
+	//Daily Totals
+	private JTextField textDailyPizzaQty;
+	private JTextField textDailyPizzaPrice;
+	private JTextField textDailyPizzaCost;
+	private JTextField textDailyPizzaProfit;
+	private JTextField textDailyDistance;
 	
 	String fileName = "";
 	int index = 0;
@@ -102,9 +110,9 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    btnUnload = createButton("Unload");
 	    btnBack = createButton("Back");
 	    btnNext = createButton("Next");
-	    //Place Buttons ON GUI 
-	    
-	    
+	    btnDaily = createButton("Daily");
+	      
+	    //Customer
 	    textCustomerName = createTextField();
 		textCustomerMobile = createTextField();
 		textCustomerType = createTextField();
@@ -112,11 +120,20 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		textCustomerY = createTextField();
 		textCustomerDistance = createTextField();
 		
+		//Pizza
 		textPizzaType = createTextField();
 		textPizzaQty = createTextField();
 		textPizzaPrice = createTextField();
 		textPizzaCost = createTextField();
 		textPizzaProfit = createTextField();
+		
+		//Daily Totals
+		textDailyPizzaQty = createTextField();
+		textDailyPizzaPrice = createTextField();
+		textDailyPizzaCost = createTextField();
+		textDailyPizzaProfit = createTextField();
+		textDailyDistance = createTextField();
+		
 		
 
 		GridLayout Layout = new GridLayout(0,2);
@@ -148,6 +165,20 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		pnlDisplay.add(textPizzaCost);
 		pnlDisplay.add(new JLabel("Pizza Profit: "));
 		pnlDisplay.add(textPizzaProfit);
+		
+		pnlDisplay.add(new JLabel("Daily Totals "));
+		pnlDisplay.add(new JLabel(""));
+		pnlDisplay.add(new JLabel("Daily Pizza Qty: "));
+		pnlDisplay.add(textDailyPizzaQty);
+		pnlDisplay.add(new JLabel("Daily Pizza Price: "));
+		pnlDisplay.add(textDailyPizzaPrice);
+		pnlDisplay.add(new JLabel("Daily Pizza Cost: "));
+		pnlDisplay.add(textDailyPizzaCost);
+		pnlDisplay.add(new JLabel("Daily Pizza Profit: "));
+		pnlDisplay.add(textDailyPizzaProfit);
+		pnlDisplay.add(new JLabel("Daily Customer Distance: "));
+		pnlDisplay.add(textDailyDistance);
+		
 		
 		layoutButtonPanel(); 
 		
@@ -198,7 +229,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    addToPanel(pnlBtn, btnLoad,constraints,0,0,2,1); 
 	    addToPanel(pnlBtn, btnUnload,constraints,3,0,2,1); 
 	    addToPanel(pnlBtn, btnBack,constraints,0,2,2,1); 
-	    addToPanel(pnlBtn, btnNext,constraints,3,2,2,1); 	
+	    addToPanel(pnlBtn, btnNext,constraints,3,2,2,1);
+	    addToPanel(pnlBtn, btnDaily,constraints,6,2,2,1); 
 	}
 	
 	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
@@ -256,6 +288,46 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				updateText(index);
 			}
 		}
+		if (src==btnDaily) {
+			ArrayList<Pizza> pizza = null;
+			ArrayList<Customer> Customer = null;
+			try {
+				pizza = LogHandler.populatePizzaDataset(fileName);
+				Customer = LogHandler.populateCustomerDataset(fileName);
+				
+				double PizzaQty = 0;
+				double PizzaPrice = 0;
+				double PizzaCost = 0;
+				double PizzaProfit = 0;
+				double Distance = 0;
+				
+				for (int i = 0; i < pizza.size(); i++) {
+					PizzaQty += pizza.get(i).getQuantity();
+					PizzaPrice += pizza.get(i).getOrderPrice();
+					PizzaCost += pizza.get(i).getOrderCost();
+					PizzaProfit += pizza.get(i).getOrderProfit();
+					Distance += Customer.get(i).getDeliveryDistance();
+				}
+				
+				textDailyPizzaQty.setText(String.valueOf(PizzaQty));
+				textDailyPizzaPrice.setText(String.valueOf(PizzaPrice));
+				textDailyPizzaCost.setText(String.valueOf(PizzaCost));
+				textDailyPizzaProfit.setText(String.valueOf(PizzaProfit));
+				textDailyDistance.setText(String.valueOf(Distance));
+				
+			} catch (PizzaException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (LogHandlerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (CustomerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+
+		}
 	}
 
 	public void updateText(int index){
@@ -264,21 +336,21 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			pizza = LogHandler.populatePizzaDataset(fileName);
 			fileIndexSize = pizza.size();
 			System.out.println("Uindex: " + index + "\n UfileIndexSize: " + fileIndexSize);
-				textPizzaType.setText(pizza.get(index).getPizzaType());
-				textPizzaQty.setText(String.valueOf(pizza.get(index).getQuantity()));
-				textPizzaPrice.setText(String.valueOf(pizza.get(index).getOrderPrice()));
-				textPizzaCost.setText(String.valueOf(pizza.get(index).getOrderCost()));
-				textPizzaProfit.setText(String.valueOf(pizza.get(index).getOrderProfit()));
+			textPizzaType.setText(pizza.get(index).getPizzaType());
+			textPizzaQty.setText(String.valueOf(pizza.get(index).getQuantity()));
+			textPizzaPrice.setText(String.valueOf(pizza.get(index).getOrderPrice()));
+			textPizzaCost.setText(String.valueOf(pizza.get(index).getOrderCost()));
+			textPizzaProfit.setText(String.valueOf(pizza.get(index).getOrderProfit()));
 			
 			ArrayList<Customer> Customer = null;
 			Customer = LogHandler.populateCustomerDataset(fileName);
 			fileIndexSize = Customer.size();
-				textCustomerName.setText(Customer.get(index).getName());
-				textCustomerMobile.setText(Customer.get(index).getMobileNumber());
-				textCustomerType.setText(Customer.get(index).getCustomerType());
-				textCustomerX.setText(String.valueOf(Customer.get(index).getLocationX()));
-				textCustomerY.setText(String.valueOf(Customer.get(index).getLocationY()));
-				textCustomerDistance.setText(String.valueOf(Customer.get(index).getDeliveryDistance()));
+			textCustomerName.setText(Customer.get(index).getName());
+			textCustomerMobile.setText(Customer.get(index).getMobileNumber());
+			textCustomerType.setText(Customer.get(index).getCustomerType());
+			textCustomerX.setText(String.valueOf(Customer.get(index).getLocationX()));
+			textCustomerY.setText(String.valueOf(Customer.get(index).getLocationY()));
+			textCustomerDistance.setText(String.valueOf(Customer.get(index).getDeliveryDistance()));
 			
 		} catch (PizzaException e1) {
 			// TODO Auto-generated catch block
