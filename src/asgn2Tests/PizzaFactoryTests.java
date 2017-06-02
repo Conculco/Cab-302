@@ -83,8 +83,4 @@ public class PizzaFactoryTests {
 	public void pizzaExceptionToLong() throws PizzaException {
 		test = PizzaFactory.getPizza(pizzaCode, quantity, LocalTime.of(19, 00), LocalTime.of(20, 30));
 	}
-	@Test(expected=PizzaException.class)
-	public void pizzaExceptionToLong() throws PizzaException {
-		test = PizzaFactory.getPizza(pizzaCode, quantity, LocalTime.of(19, 00), LocalTime.of(20, 30));
-	}
 }

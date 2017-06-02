@@ -5,6 +5,7 @@ package asgn2Exceptions;
  * @author Alan Woodley
  *
  */
+@SuppressWarnings("serial")
 public class PizzaException extends Exception {
 
 	/**

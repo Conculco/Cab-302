@@ -1,11 +1,8 @@
 package asgn2Restaurant;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import asgn2Customers.Customer;
@@ -29,9 +26,7 @@ import asgn2Pizzas.Pizza;
 public class PizzaRestaurant {
 
 	private ArrayList<Customer> customersArray;
-	private Customer customer;
 	private ArrayList<Pizza> pizzasArray;
-	private Pizza pizza;
 	private final static String COMMA = ",";
 	
 	/**
@@ -65,23 +60,21 @@ public class PizzaRestaurant {
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
 		try {
 			BufferedReader brCust = new BufferedReader(new FileReader(filename));
-			BufferedReader brPizza = new BufferedReader(new FileReader(filename));
 			String strCustLine;
-			String strPizzaLine;
 			strCustLine = brCust.readLine();
-			strPizzaLine = brPizza.readLine();
 			String thisCustLine = strCustLine;
-			String thisPizzaLine = strPizzaLine;
-			String[] compArr = thisCustLine.split(COMMA);
-			String[] compArrPizza = thisPizzaLine.split(COMMA);
-			if(compArr.length == 9) {
+			String[] logArr = thisCustLine.split(COMMA);
+			if(logArr.length == 9) {
 				customersArray = LogHandler.populateCustomerDataset(filename);
 				pizzasArray = LogHandler.populatePizzaDataset(filename);
+				brCust.close();
 				return true;
 			} 
 			else {
+				brCust.close();
 				return false;
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
