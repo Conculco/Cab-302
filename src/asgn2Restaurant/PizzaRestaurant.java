@@ -138,10 +138,10 @@ public class PizzaRestaurant {
 	 */
 	public double getTotalDeliveryDistance(){
 		int deliveryDistanceTotal = 0;
-		while (customersArray.iterator().hasNext()) {
-			deliveryDistanceTotal += customersArray.iterator().next().getDeliveryDistance();
+		for (int i = 0; i < customersArray.size(); i++) {
+			deliveryDistanceTotal += customersArray.get(i).getDeliveryDistance();
 		}
-		System.out.println(deliveryDistanceTotal);
+		//System.out.println(deliveryDistanceTotal);
 		return deliveryDistanceTotal;
 	}
 
@@ -152,8 +152,8 @@ public class PizzaRestaurant {
 	 */	
 	public double getTotalProfit(){
 		int totalProfit = 0;
-		while (pizzasArray.iterator().hasNext()) {
-			totalProfit += pizzasArray.iterator().next().getOrderProfit();
+		for (int i = 0; i < pizzasArray.size(); i++) {
+			totalProfit += pizzasArray.get(i).getOrderProfit();
 		}
 		return totalProfit;
 	}
@@ -165,7 +165,8 @@ public class PizzaRestaurant {
 	 * <P> POST:  The pizzas and customers fields are set to their initial empty states
 	 */
 	public void resetDetails(){
-		// TO DO
+		customersArray = new ArrayList<Customer>();
+		pizzasArray = new ArrayList<Pizza>();
 	}
 
 }

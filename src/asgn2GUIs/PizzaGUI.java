@@ -1,35 +1,13 @@
 package asgn2GUIs;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.awt.event.ActionEvent;
-
-
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.text.DecimalFormat;
-
 import javax.swing.JPanel;
-import javax.swing.text.DefaultCaret;
-
-import asgn2Customers.Customer;
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
-import asgn2Pizzas.Pizza;
-import asgn2Restaurant.LogHandler;
 import asgn2Restaurant.PizzaRestaurant;
-
 import javax.swing.JFrame;
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -239,6 +217,28 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    
 	    
 	}
+	private void clearPanel()
+	{
+		index = 0;
+		fileIndexSize = 0;
+		fileName = "";
+		textPizzaType.setText("");
+		textPizzaQty.setText("");
+		textPizzaPrice.setText("");
+		textPizzaCost.setText("");
+		textPizzaProfit.setText("");
+		textCustomerName.setText("");
+		textCustomerMobile.setText("");
+		textCustomerType.setText("");
+		textCustomerX.setText("");
+		textCustomerY.setText("");
+		textCustomerDistance.setText("");
+		textDailyPizzaQty.setText("");
+		textDailyPizzaPrice.setText("");
+		textDailyPizzaCost.setText("");
+		textDailyPizzaProfit.setText("");
+		textDailyDistance.setText("");
+	}
 	
 	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
 		      constraints.gridx = x;
@@ -271,42 +271,28 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			    btnDaily.setEnabled(true);
 			    btnLoad.setEnabled(false);
 				} else {
+					p.resetDetails();
 					JOptionPane.showMessageDialog(pnlDisplay, "Log File is invalid");
 				}
 			}
 			} catch (CustomerException e1) {
 				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
+				p.resetDetails();
 				e1.printStackTrace();
 			} catch (PizzaException e1) {
 				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
+				p.resetDetails();
 				e1.printStackTrace();
 			} catch (LogHandlerException e1) {
 				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
+				p.resetDetails();
 				e1.printStackTrace();
 			}
 		}  
 
 		if (src==btnUnload) {
-			index = 0;
-			fileIndexSize = 0;
-			fileName = "";
-			textPizzaType.setText("");
-			textPizzaQty.setText("");
-			textPizzaPrice.setText("");
-			textPizzaCost.setText("");
-			textPizzaProfit.setText("");
-			textCustomerName.setText("");
-			textCustomerMobile.setText("");
-			textCustomerType.setText("");
-			textCustomerX.setText("");
-			textCustomerY.setText("");
-			textCustomerDistance.setText("");
-			textDailyPizzaQty.setText("");
-			textDailyPizzaPrice.setText("");
-			textDailyPizzaCost.setText("");
-			textDailyPizzaProfit.setText("");
-			textDailyDistance.setText("");
-			
+			p.resetDetails();
+			clearPanel();
 		    btnUnload.setEnabled(false);
 		    btnBack.setEnabled(false); 
 		    btnNext.setEnabled(false); 
@@ -316,10 +302,9 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		if (src==btnNext) {
 			btnBack.setEnabled(true);
 			index++;
-			if (index == fileIndexSize-1){
+			if (index == p.getNumCustomerOrders() - 1){
 				btnNext.setEnabled(false);
 			}
-			System.out.println("index: " + index + "\n fileIndexSize: " + fileIndexSize);
 			updateText(index);
 		}
 		if (src==btnBack) {
@@ -343,28 +328,24 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 					PizzaQty += p.getPizzaByIndex(i).getQuantity();
 					PizzaPrice += p.getPizzaByIndex(i).getOrderPrice();
 					PizzaCost += p.getPizzaByIndex(i).getOrderCost();
-					PizzaProfit += p.getPizzaByIndex(i).getOrderProfit();
-					Distance += p.getCustomerByIndex(i).getDeliveryDistance();
-				
+					PizzaProfit = p.getTotalProfit();
+					Distance = p.getTotalDeliveryDistance();
+				}
 				textDailyPizzaQty.setText(String.valueOf(PizzaQty));
 				textDailyPizzaPrice.setText(String.valueOf(PizzaPrice));
 				textDailyPizzaCost.setText(String.valueOf(PizzaCost));
 				textDailyPizzaProfit.setText(String.valueOf(PizzaProfit));
 				textDailyDistance.setText(String.valueOf(Distance));
-				}
+				
 			} catch (PizzaException e1) {
 				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
-				e1.printStackTrace();
-			} catch (CustomerException e1) {
-				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
-				e1.printStackTrace();
 			}
 		}
 	}
 
 	public void updateText(int index){
 		try {
-			System.out.println("Uindex: " + index + "\n UfileIndexSize: " + fileIndexSize);
+			//System.out.println("Uindex: " + index + "\n UfileIndexSize: " + fileIndexSize);
 			textPizzaType.setText(p.getPizzaByIndex(index).getPizzaType());
 			textPizzaQty.setText(String.valueOf(p.getPizzaByIndex(index).getQuantity()));
 			textPizzaQty.setText(String.valueOf(p.getPizzaByIndex(index).getQuantity()));
