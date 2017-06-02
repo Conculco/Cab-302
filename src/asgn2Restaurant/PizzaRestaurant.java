@@ -2,6 +2,8 @@ package asgn2Restaurant;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -41,8 +43,8 @@ public class PizzaRestaurant {
 	 * 
 	 */
 	public PizzaRestaurant() {
-		ArrayList<Customer> customer = new ArrayList<Customer>();
-		ArrayList<Pizza> pizza = new ArrayList<Pizza>();
+		customersArray = new ArrayList<Customer>();
+		pizzasArray = new ArrayList<Pizza>();
 	}
 
 	/**
@@ -61,28 +63,22 @@ public class PizzaRestaurant {
      *
 	 */
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
-		customersArray = LogHandler.populateCustomerDataset(filename);
-		pizzasArray = LogHandler.populatePizzaDataset(filename);
 		FileInputStream fstreamCust = null;
 		FileInputStream fstreamPizza = null;
-		@SuppressWarnings("resource")
-		
-		BufferedReader brCust = new BufferedReader(new InputStreamReader(fstreamCust));
-		BufferedReader brPizza = new BufferedReader(new InputStreamReader(fstreamPizza));
-		String strCustLine;
-		String strPizzaLine;
 		try {
+			BufferedReader brCust = new BufferedReader(new FileReader(filename));
+			BufferedReader brPizza = new BufferedReader(new FileReader(filename));
+			String strCustLine;
+			String strPizzaLine;
 			strCustLine = brCust.readLine();
 			strPizzaLine = brPizza.readLine();
 			String thisCustLine = strCustLine;
 			String thisPizzaLine = strPizzaLine;
 			String[] compArr = thisCustLine.split(COMMA);
 			String[] compArrPizza = thisPizzaLine.split(COMMA);
-			String lineCompare = customersArray.get(0).getName();
-			String lineCompare2 = compArr[2];
-			String lineCompare3 = pizzasArray.get(0).getPizzaType();
-			String lineCompare4 = compArrPizza[8];
-			if(lineCompare.equals(lineCompare2) && lineCompare3.equals(lineCompare4)) {
+			if(compArr.length == 9) {
+				customersArray = LogHandler.populateCustomerDataset(filename);
+				pizzasArray = LogHandler.populatePizzaDataset(filename);
 				return true;
 			} 
 			else {
@@ -93,7 +89,6 @@ public class PizzaRestaurant {
 		}
 		return false;
 	}
-
 	/**
 	 * Returns the Customer object contained at the specified index of the customers field. The index should be the same as the index in the log file.
 	 * @param index - The index within the customers field to retrieve.

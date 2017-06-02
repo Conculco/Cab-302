@@ -1,7 +1,7 @@
 package asgn2Pizzas;
 
 import java.time.LocalTime;
-
+import static java.time.temporal.ChronoUnit.*;
 import asgn2Exceptions.PizzaException;
 
 
@@ -22,6 +22,7 @@ public abstract class Pizza  {
 	private double price;
 	@SuppressWarnings("unused")
 	private LocalTime orderTime;
+	
 	
 	/**
 	 *  This class represents a pizza produced at the Pizza Palace restaurant.  A detailed description of the class's fields
@@ -50,7 +51,7 @@ public abstract class Pizza  {
 		} 
 		if(orderTime.isBefore(LocalTime.of(19, 00)) || orderTime.isAfter(LocalTime.of(22, 59))) {
 			throw new PizzaException("Kitchen is closed, new orders cannot be taken");
-		} else if(deliveryTime.getHour() - orderTime.getHour() >= 1 || deliveryTime.getHour() - orderTime.getHour() == 1 && deliveryTime.getMinute() - orderTime.getMinute() >= 1) {
+		} else if(orderTime.until(deliveryTime, MINUTES) >= 60) {
 			throw new PizzaException("Pizza is old, needs to be thrown");
 		} else {
 			this.orderTime = orderTime;

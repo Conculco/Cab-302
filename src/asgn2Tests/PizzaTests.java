@@ -69,7 +69,7 @@ public class PizzaTests {
 	@Test(expected=PizzaException.class)	
 	public void pizzaQuantity_PizzaThrown() throws PizzaException{
 		@SuppressWarnings("unused")
-		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(19, 00), LocalTime.of(21, 00));
+		MeatLoversPizza aPizza = new MeatLoversPizza(1, LocalTime.of(20, 47), LocalTime.of(21, 47));
 	}
 	@Test(expected=PizzaException.class)	
 	public void pizzaQuantity_PizzaThrown2() throws PizzaException{

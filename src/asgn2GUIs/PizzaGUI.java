@@ -87,9 +87,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	
 	String fileName = "";
 	int index = 0;
-	int fileIndexSize = 0;
-
-	
+	PizzaRestaurant p = new PizzaRestaurant();
+	int fileIndexSize = p.getNumCustomerOrders();
 	/**
 	 * Creates a new Pizza GUI with the specified title 
 	 * @param title - The title for the supertype JFrame
@@ -256,22 +255,37 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	      
 		//Consider the alternatives - not all active at once. 
 		if (src== btnLoad) {
+			try {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new File("./logs"));
 			int result = fileChooser.showOpenDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION) {
-			    File selectedFile = fileChooser.getSelectedFile();
-			    fileName = selectedFile.toString();
-			    updateText(index);
-			    
+				File selectedFile = fileChooser.getSelectedFile();
+				fileName = selectedFile.toString();
+				if(p.processLog(fileName))
+				{
+					updateText(index);
 			    //Button Gray Out
 			    btnUnload.setEnabled(true);
 			    btnNext.setEnabled(true); 
 			    btnDaily.setEnabled(true);
 			    btnLoad.setEnabled(false);
-			    
-			}  
-		}
+				} else {
+					JOptionPane.showMessageDialog(pnlDisplay, "Log File is invalid");
+				}
+			}
+			} catch (CustomerException e1) {
+				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
+				e1.printStackTrace();
+			} catch (PizzaException e1) {
+				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
+				e1.printStackTrace();
+			} catch (LogHandlerException e1) {
+				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
+				e1.printStackTrace();
+			}
+		}  
+
 		if (src==btnUnload) {
 			index = 0;
 			fileIndexSize = 0;
@@ -318,41 +332,31 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		}
 		if (src==btnDaily) {
 			btnDaily.setEnabled(false);
-			
-			ArrayList<Pizza> pizza = null;
-			ArrayList<Customer> Customer = null;
 			try {
-				pizza = LogHandler.populatePizzaDataset(fileName);
-				Customer = LogHandler.populateCustomerDataset(fileName);
-				
 				double PizzaQty = 0;
 				double PizzaPrice = 0;
 				double PizzaCost = 0;
 				double PizzaProfit = 0;
 				double Distance = 0;
 				
-				for (int i = 0; i < pizza.size(); i++) {
-					PizzaQty += pizza.get(i).getQuantity();
-					PizzaPrice += pizza.get(i).getOrderPrice();
-					PizzaCost += pizza.get(i).getOrderCost();
-					PizzaProfit += pizza.get(i).getOrderProfit();
-					Distance += Customer.get(i).getDeliveryDistance();
-				}
+				for (int i = 0; i < p.getNumCustomerOrders(); i++) {
+					PizzaQty += p.getPizzaByIndex(i).getQuantity();
+					PizzaPrice += p.getPizzaByIndex(i).getOrderPrice();
+					PizzaCost += p.getPizzaByIndex(i).getOrderCost();
+					PizzaProfit += p.getPizzaByIndex(i).getOrderProfit();
+					Distance += p.getCustomerByIndex(i).getDeliveryDistance();
 				
 				textDailyPizzaQty.setText(String.valueOf(PizzaQty));
 				textDailyPizzaPrice.setText(String.valueOf(PizzaPrice));
 				textDailyPizzaCost.setText(String.valueOf(PizzaCost));
 				textDailyPizzaProfit.setText(String.valueOf(PizzaProfit));
 				textDailyDistance.setText(String.valueOf(Distance));
-				
+				}
 			} catch (PizzaException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (LogHandlerException e1) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
 				e1.printStackTrace();
 			} catch (CustomerException e1) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
 				e1.printStackTrace();
 			}
 		}
@@ -360,34 +364,25 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 
 	public void updateText(int index){
 		try {
-			ArrayList<Pizza> pizza = null;
-			pizza = LogHandler.populatePizzaDataset(fileName);
-			fileIndexSize = pizza.size();
 			System.out.println("Uindex: " + index + "\n UfileIndexSize: " + fileIndexSize);
-			textPizzaType.setText(pizza.get(index).getPizzaType());
-			textPizzaQty.setText(String.valueOf(pizza.get(index).getQuantity()));
-			textPizzaPrice.setText(String.valueOf(pizza.get(index).getOrderPrice()));
-			textPizzaCost.setText(String.valueOf(pizza.get(index).getOrderCost()));
-			textPizzaProfit.setText(String.valueOf(pizza.get(index).getOrderProfit()));
-			
-			ArrayList<Customer> Customer = null;
-			Customer = LogHandler.populateCustomerDataset(fileName);
-			fileIndexSize = Customer.size();
-			textCustomerName.setText(Customer.get(index).getName());
-			textCustomerMobile.setText(Customer.get(index).getMobileNumber());
-			textCustomerType.setText(Customer.get(index).getCustomerType());
-			textCustomerX.setText(String.valueOf(Customer.get(index).getLocationX()));
-			textCustomerY.setText(String.valueOf(Customer.get(index).getLocationY()));
-			textCustomerDistance.setText(String.valueOf(Customer.get(index).getDeliveryDistance()));
+			textPizzaType.setText(p.getPizzaByIndex(index).getPizzaType());
+			textPizzaQty.setText(String.valueOf(p.getPizzaByIndex(index).getQuantity()));
+			textPizzaQty.setText(String.valueOf(p.getPizzaByIndex(index).getQuantity()));
+			textPizzaPrice.setText(String.valueOf(p.getPizzaByIndex(index).getOrderPrice()));
+			textPizzaCost.setText(String.valueOf(p.getPizzaByIndex(index).getOrderCost()));
+			textPizzaProfit.setText(String.valueOf(p.getPizzaByIndex(index).getOrderProfit()));
+			textCustomerName.setText(p.getCustomerByIndex(index).getName());
+			textCustomerMobile.setText(p.getCustomerByIndex(index).getMobileNumber());
+			textCustomerType.setText(p.getCustomerByIndex(index).getCustomerType());
+			textCustomerX.setText(String.valueOf(p.getCustomerByIndex(index).getLocationX()));
+			textCustomerY.setText(String.valueOf(p.getCustomerByIndex(index).getLocationY()));
+			textCustomerDistance.setText(String.valueOf(p.getCustomerByIndex(index).getDeliveryDistance()));
 			
 		} catch (PizzaException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (LogHandlerException e1) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
 			e1.printStackTrace();
 		} catch (CustomerException e1) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(pnlDisplay, e1.getMessage() + " : Please check log file for errors");
 			e1.printStackTrace();
 		}
 	}
