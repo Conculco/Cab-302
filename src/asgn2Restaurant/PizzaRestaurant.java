@@ -63,8 +63,6 @@ public class PizzaRestaurant {
      *
 	 */
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
-		FileInputStream fstreamCust = null;
-		FileInputStream fstreamPizza = null;
 		try {
 			BufferedReader brCust = new BufferedReader(new FileReader(filename));
 			BufferedReader brPizza = new BufferedReader(new FileReader(filename));
