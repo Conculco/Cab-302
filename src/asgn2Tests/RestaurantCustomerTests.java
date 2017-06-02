@@ -86,30 +86,7 @@ public class RestaurantCustomerTests {
 		String exValue = "Oroku Saki";
 		assertEquals(exValue, acValue);
 	}
-	@Test	
-	public void RestaurantCustomer_getPizzaByIndex1() throws CustomerException, PizzaException, LogHandlerException{
-		PizzaRestaurant p2 = new PizzaRestaurant();
-		p2.processLog("./logs/20170101.txt");
-		String acValue = p2.getPizzaByIndex(0).getPizzaType();
-		String exValue = "Vegetarian";
-		assertEquals(exValue, acValue);
-	}
-	@Test	
-	public void RestaurantCustomer_getPizzaByIndex2() throws CustomerException, PizzaException, LogHandlerException{
-		PizzaRestaurant p2 = new PizzaRestaurant();
-		p2.processLog("./logs/20170101.txt");
-		String acValue = p2.getPizzaByIndex(1).getPizzaType();
-		String exValue = "Meat Lovers";
-		assertEquals(exValue, acValue);
-	}
-	@Test	
-	public void RestaurantCustomer_getPizzaByIndex3() throws CustomerException, PizzaException, LogHandlerException{
-		PizzaRestaurant p2 = new PizzaRestaurant();
-		p2.processLog("./logs/20170101.txt");
-		String acValue = p2.getPizzaByIndex(2).getPizzaType();
-		String exValue = "Margherita";
-		assertEquals(exValue, acValue);
-	}
+
 	@Test	
 	public void RestaurantCustomer_getNumCustomerOrders1() throws CustomerException, PizzaException, LogHandlerException{
 		PizzaRestaurant p2 = new PizzaRestaurant();
@@ -150,14 +127,4 @@ public class RestaurantCustomerTests {
 		int exValue = 10;
 		assertEquals(exValue, acValue);
 	}
-	@Test	
-	public void RestaurantCustomer_getNumPizzaOrders3() throws CustomerException, PizzaException, LogHandlerException{
-		PizzaRestaurant p2 = new PizzaRestaurant();
-		p2.processLog("./logs/20170103.txt");
-		int acValue = p2.getNumPizzaOrders();
-		int exValue = 100;
-		assertEquals(exValue, acValue);
-	}
-	
-	
 }
