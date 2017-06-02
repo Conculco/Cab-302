@@ -6,9 +6,6 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
-import asgn2Customers.Customer;
-import asgn2Customers.CustomerFactory;
-import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
 import asgn2Pizzas.PizzaFactory;
@@ -60,5 +57,34 @@ public class PizzaFactoryTests {
 	public void pizzaFactoryGetQuantity() throws PizzaException {
 		test = PizzaFactory.getPizza(pizzaCode, quantity, orderTime, deliveryTime);
 		assertEquals(5, test.getQuantity());
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaException() throws PizzaException {
+		test = PizzaFactory.getPizza("PZE", quantity, orderTime, deliveryTime);
+		assertEquals("Meat Lovers", test.getPizzaType());
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaExceptionToManyPizza() throws PizzaException {
+		test = PizzaFactory.getPizza(pizzaCode, 11, orderTime, deliveryTime);
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaExceptionToLittlePizza() throws PizzaException {
+		test = PizzaFactory.getPizza(pizzaCode, 0, orderTime, deliveryTime);
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaExceptionToEarly() throws PizzaException {
+		test = PizzaFactory.getPizza(pizzaCode, quantity, LocalTime.of(18, 00), deliveryTime);
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaExceptionToLate() throws PizzaException {
+		test = PizzaFactory.getPizza(pizzaCode, quantity, LocalTime.of(23, 00), LocalTime.of(23, 20));
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaExceptionToLong() throws PizzaException {
+		test = PizzaFactory.getPizza(pizzaCode, quantity, LocalTime.of(19, 00), LocalTime.of(20, 30));
+	}
+	@Test(expected=PizzaException.class)
+	public void pizzaExceptionToLong() throws PizzaException {
+		test = PizzaFactory.getPizza(pizzaCode, quantity, LocalTime.of(19, 00), LocalTime.of(20, 30));
 	}
 }
