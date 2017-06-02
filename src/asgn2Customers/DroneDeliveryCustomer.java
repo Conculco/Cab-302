@@ -67,6 +67,6 @@ public class DroneDeliveryCustomer extends Customer {
 	public double getDeliveryDistance() {
 		double x1 = getLocationX();
 		double y1 = getLocationY();
-		return Math.sqrt((x1*x1) + (y1*y1));
+		return Math.abs(Math.sqrt((x1*x1) + (y1*y1)));
 	}
 }
