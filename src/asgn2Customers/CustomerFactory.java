@@ -39,9 +39,8 @@ public class CustomerFactory {
 				DroneDeliveryCustomer dnc = new DroneDeliveryCustomer(name, mobileNumber, locationX, locationY);
 				return dnc;
 			} else {
-				new CustomerException("Invalid Customer Code Given");
+				throw new CustomerException("Invalid Customer Code Given");
 			}
-			return gCust;
 	}
 }
 
