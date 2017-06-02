@@ -13,8 +13,6 @@ import asgn2Exceptions.PizzaException;
  */
 
 public class PizzaFactory {
-
-	private static Pizza gPizza;
 	/**
 	 * A method that uses the Factory Method pattern to produce an instance of one of the asgn2Pizzas.Pizza subclasses. 
 	 * Subclasses are created using the pizzaCode. All valid pizza codes are listed in Section 5.3 of the Assignment Specification.
@@ -38,8 +36,7 @@ public class PizzaFactory {
 			MargheritaPizza marg = new MargheritaPizza(quantity, orderTime, deliveryTime);
 			return marg;
 		} else {
-			new PizzaException("Invalid Pizza Code Given");
+			throw new PizzaException("Invalid Pizza Code Given");
 		}
-		return gPizza;
 	}
 }

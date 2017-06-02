@@ -7,8 +7,6 @@ import asgn2Customers.DriverDeliveryCustomer;
 import asgn2Customers.DroneDeliveryCustomer;
 import asgn2Customers.PickUpCustomer;
 import asgn2Exceptions.CustomerException;
-import asgn2Exceptions.PizzaException;
-
 
 /**
  * A class that tests the that tests the asgn2Customers.PickUpCustomer, asgn2Customers.DriverDeliveryCustomer,

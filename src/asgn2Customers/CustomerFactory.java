@@ -13,8 +13,6 @@ import asgn2Customers.Customer;
  */
 
 public class CustomerFactory {
-
-	private static Customer gCust;
 	/**
 	 * A method that uses the Factory Method pattern to produce an instance of one of the asgn2Customers.Customer subclasses. 
 	 * Subclasses are created using the customerCode. All valid customer codes are listed in Section 5.3 of the Assignment Specification.

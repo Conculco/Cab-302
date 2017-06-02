@@ -18,7 +18,6 @@ public class CustomerFactoryTests {
 	private String mobileNumber = "0425080171";
 	private int positionX = 3;
 	private int positionY = 2;
-	@SuppressWarnings("unused")
 	private Customer test;
 	private String code = "PUC";
 	
@@ -54,41 +53,35 @@ public class CustomerFactoryTests {
 	@Test(expected=CustomerException.class)	
 	public void customerFactoryTest_EmptyNameInvalidDriver() throws CustomerException {
 		String newName = "";
-		String newCode = "DVC";
 		test = CustomerFactory.getCustomer(code, newName, mobileNumber, positionX, positionY);
 		assertEquals("Drone Delivery", test.getCustomerType());
 	}
 	@Test(expected=CustomerException.class)	
 	public void customerFactoryTest_EmptyNameInvalidDrone() throws CustomerException {
 		String newName = "";
-		String newCode = "DNC";
 		test = CustomerFactory.getCustomer(code, newName, mobileNumber, positionX, positionY);
 		assertEquals("Drone Delivery", test.getCustomerType());
 	}
 	@Test(expected=CustomerException.class)	
 	public void customerFactoryTest_EmptyNameInvalidPickup() throws CustomerException {
 		String newName = "";
-		String newCode = "PUC";
 		test = CustomerFactory.getCustomer(code, newName, mobileNumber, positionX, positionY);
 		assertEquals("Drone Delivery", test.getCustomerType());
 	}
 	@Test(expected=CustomerException.class)	
 	public void customerFactoryTest_EmptyNumInvalidDriver() throws CustomerException {
-		String newCode = "DVC";
 		String newNum = "";
 		test = CustomerFactory.getCustomer(code, name, newNum, positionX, positionY);
 		assertEquals("Drone Delivery", test.getCustomerType());
 	}
 	@Test(expected=CustomerException.class)	
 	public void customerFactoryTest_EmptyNumInvalidDrone() throws CustomerException {
-		String newCode = "DNC";
 		String newNum = "";
 		test = CustomerFactory.getCustomer(code, name, newNum, positionX, positionY);
 		assertEquals("Drone Delivery", test.getCustomerType());
 	}
 	@Test(expected=CustomerException.class)	
 	public void customerFactoryTest_EmptyNumInvalidPickup() throws CustomerException {
-		String newCode = "PUC";
 		String newNum = "";
 		test = CustomerFactory.getCustomer(code, name, newNum, positionX, positionY);
 		assertEquals("Drone Delivery", test.getCustomerType());
